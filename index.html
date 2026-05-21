@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Password Counter — Ganita Prakash Grade 8</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -14,209 +14,374 @@
   --blue:#2c5f9e;--red:#c0392b;--green:#1a7a4a;--orange:#e08020;
   --font:'DM Sans',-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
 }
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
-.page{max-width:860px;margin:0 auto;padding:28px 20px}
-.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
-.title{font-size:22px;font-weight:700;margin-bottom:5px}
-.subtitle{font-size:14px;color:var(--text2);margin-bottom:22px;max-width:560px;line-height:1.5}
-.card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
-.card-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:14px}
+body{font-family:var(--font);background:var(--bg);color:var(--text);
+  min-height:100vh;-webkit-font-smoothing:antialiased;padding:24px 16px 60px;line-height:1.5}
+.app{max-width:900px;margin:0 auto}
+.head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.head-ic{width:42px;height:42px;border-radius:10px;background:var(--surface2);
+  border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-weight:600;color:var(--text2);font-size:16px;flex-shrink:0}
+.lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:2px}
+.title{font-size:22px;font-weight:700;line-height:1.2}
+.tagline{font-size:14px;color:var(--text2);margin-bottom:20px;margin-top:4px;line-height:1.5}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+@media(max-width:680px){.layout{grid-template-columns:1fr}}
+.panel{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:18px}
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:10px}
 
-/* Lock builder */
-.lock-display{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:18px 0;min-height:60px;align-items:center}
-.lock-slot{width:52px;height:64px;border:2px solid var(--border);border-radius:10px;background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all .15s;cursor:default}
-.lock-slot.filled{border-color:var(--blue);background:rgba(44,95,158,.08)}
-.lock-slot .slot-char{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--blue)}
-.lock-slot .slot-label{font-size:9px;color:var(--text3);font-weight:600;text-align:center;line-height:1.2}
+/* Charset options */
+.charset-options{display:flex;flex-direction:column;gap:6px}
+.cs-option{display:flex;align-items:center;gap:10px;padding:10px 12px;
+  border:1.5px solid var(--border);border-radius:9px;cursor:pointer;transition:all .15s;background:var(--surface2)}
+.cs-option:hover{border-color:var(--text3)}
+.cs-option.active{border-color:var(--blue);background:#2c5f9e0d}
+.cs-radio{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.cs-option.active .cs-radio{border-color:var(--blue)}
+.cs-radio-dot{width:8px;height:8px;border-radius:50%;background:var(--blue);display:none}
+.cs-option.active .cs-radio-dot{display:block}
+.cs-chars{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)}
+.cs-count{font-size:12px;color:var(--text3);margin-left:auto;font-weight:600}
 
-/* Controls */
-.ctrl-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
-@media(max-width:500px){.ctrl-grid{grid-template-columns:1fr}}
-.ctrl-card{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:13px 15px}
-.ctrl-card .cc-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:8px}
-.checkbox-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--text2)}
-.checkbox-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--blue);cursor:pointer}
-.sl-row{display:flex;align-items:center;gap:10px;margin-top:4px}
-.sl-row label{font-size:13px;font-weight:500;color:var(--text2)}
-.sl-row input[type=range]{flex:1;height:5px;accent-color:var(--blue);cursor:pointer}
-.sl-num{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--blue);min-width:24px;text-align:right}
+/* Slots control */
+.slots-control{display:flex;align-items:center;gap:0;border:1.5px solid var(--border);border-radius:10px;overflow:hidden}
+.slot-btn{width:44px;height:44px;border:none;background:var(--surface2);
+  font-size:22px;font-weight:700;color:var(--text2);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .12s;user-select:none;flex-shrink:0;line-height:1}
+.slot-btn:hover{background:var(--border);color:var(--text)}
+.slot-btn:active{transform:scale(.92)}
+.slot-btn.add{color:var(--green)}
+.slot-btn.rem{color:var(--red)}
+.slot-btn:disabled{opacity:.3;cursor:default}
+.slot-count{flex:1;text-align:center;font-family:var(--mono);font-size:22px;font-weight:800;color:var(--blue);background:var(--surface)}
 
-/* Big result */
-.result-section{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:16px 20px;text-align:center;margin-bottom:14px}
-.result-formula{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text2);margin-bottom:6px}
-.result-val{font-family:var(--mono);font-size:32px;font-weight:700;color:var(--blue);line-height:1.1}
-.result-sci{font-size:14px;color:var(--text3);font-family:var(--mono);margin-top:4px}
+/* Lock */
+.lock-display{display:flex;align-items:flex-end;justify-content:center;gap:4px;
+  padding:16px 8px;background:#1a2530;border-radius:10px;min-height:80px;
+  position:relative;overflow:hidden}
+.lock-slot-vis{display:flex;flex-direction:column;align-items:center;gap:3px}
+.lsv-drum{width:40px;height:48px;background:#0d1820;border:1.5px solid #3a5070;
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:18px;font-weight:700;color:#7ab0e0;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.5)}
+.lsv-n{font-size:9px;color:#4a6a8a;font-weight:700;font-family:var(--mono);text-transform:uppercase}
+.lock-times{color:#3a5070;font-size:18px;font-weight:700;padding:0 2px;align-self:center;margin-bottom:14px}
+.lock-answer{text-align:center;padding-top:10px}
+.lock-ans-num{font-family:var(--mono);font-size:28px;font-weight:800;color:var(--blue)}
+.lock-ans-label{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
 
-/* Growth table */
-.growth-table{width:100%;border-collapse:collapse;font-size:13px}
-.growth-table th{padding:7px 10px;border-bottom:2px solid var(--border);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);background:var(--surface2);text-align:right}
-.growth-table th:first-child{text-align:center}
-.growth-table td{padding:7px 10px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:12.5px;text-align:right}
-.growth-table td:first-child{text-align:center;font-weight:700;color:var(--text2)}
-.growth-table tr.current td{background:#fffbeb}
-.growth-table tr:last-child td{border-bottom:none}
+/* Time cards */
+.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.time-card{padding:10px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;text-align:center}
+.tc-rate{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);margin-bottom:4px}
+.tc-time{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text);line-height:1.2}
 
-/* Presets */
-.preset-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
-.psc{padding:5px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:12.5px;font-weight:500;color:var(--text2);background:var(--surface);cursor:pointer;font-family:var(--font)}
-.psc:hover{border-color:var(--blue);color:var(--blue)}
-.psc.active{background:var(--blue);border-color:var(--blue);color:#fff}
-
-.insight{background:#fff8f0;border:1.5px solid #f0d8c0;border-radius:10px;padding:13px 18px;font-size:13.5px;color:#6b4400;line-height:1.65}
-.insight strong{color:#a05000}
-.insight .eq{font-family:var(--mono);font-size:13px;display:block;margin:2px 0}
+/* Grid card */
+.grid-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;
+  padding:18px;min-height:400px;display:flex;flex-direction:column}
+.grid-header{margin-bottom:14px}
+.grid-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+.grid-subtitle{font-size:12px;color:var(--text2)}
+.combo-area{flex:1;display:flex;flex-direction:column;gap:12px}
+.slot-group{display:flex;flex-direction:column;gap:6px}
+.group-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+  color:var(--text3);display:flex;align-items:center;gap:8px}
+.group-label-line{flex:1;height:1px;background:var(--border)}
+.combos-grid{display:flex;flex-wrap:wrap;gap:3px}
+.combo-cell{border-radius:5px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-weight:700;border:1px solid;
+  cursor:default;flex-shrink:0}
+.combo-cell:hover{transform:scale(1.18);z-index:2;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.fog-section{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;text-align:center;padding:24px;background:var(--surface2);border-radius:10px;border:1.5px dashed var(--border)}
+.fog-number{font-family:var(--mono);font-size:44px;font-weight:800;color:var(--blue);line-height:1}
+.fog-label{font-size:13px;color:var(--text2);font-weight:600;max-width:260px;line-height:1.5}
+.fog-formula{font-family:var(--mono);font-size:14px;color:var(--text3);font-weight:600}
+.fog-dots{font-size:32px;color:var(--border);letter-spacing:8px;line-height:1}
+.multiply-banner{padding:10px 14px;background:#fff8f0;border:1px solid #f0d8c0;
+  border-left:3px solid var(--orange);border-radius:0 8px 8px 0;
+  font-size:13px;color:#6b4400;font-weight:600;line-height:1.5;margin-top:4px}
+.multiply-banner strong{color:#4a2e00}
 </style>
 </head>
 <body>
-<div class="page">
-  <div class="lbl">Chapter 2 · Power Play</div>
-  <div class="title">Password Counter</div>
-  <div class="subtitle">How many passwords are possible? Each extra digit or letter multiplies the count — this is why longer passwords are exponentially harder to guess.</div>
-
-  <div class="card">
-    <!-- Presets -->
-    <div class="preset-row">
-      <span style="font-size:12px;color:var(--text3);font-weight:500">Presets:</span>
-      <button class="psc active" onclick="loadPreset('digits4')">4-digit PIN</button>
-      <button class="psc" onclick="loadPreset('digits5')">5-digit lock</button>
-      <button class="psc" onclick="loadPreset('letters6')">6-letter code</button>
-      <button class="psc" onclick="loadPreset('alpha5')">5-char alphanumeric</button>
-      <button class="psc" onclick="loadPreset('mobile')">Mobile number (10 digits)</button>
+<div class="app">
+  <div class="head">
+    <div class="head-ic">2</div>
+    <div>
+      <div class="lbl">Chapter 2 · Power Play</div>
+      <div class="title">Password Counter</div>
     </div>
+  </div>
+  <div class="tagline">Each slot you add doesn't <em>add</em> possibilities — it <strong>multiplies</strong> them. See every combination laid out.</div>
 
-    <!-- Controls -->
-    <div class="ctrl-grid">
-      <div class="ctrl-card">
-        <div class="cc-lbl">Character types allowed</div>
-        <label class="checkbox-row"><input type="checkbox" id="useDigits" checked onchange="render()"> Digits (0–9) — 10 options</label>
-        <label class="checkbox-row"><input type="checkbox" id="useUpper" onchange="render()"> Uppercase letters (A–Z) — 26 options</label>
-        <label class="checkbox-row"><input type="checkbox" id="useLower" onchange="render()"> Lowercase letters (a–z) — 26 options</label>
-      </div>
-      <div class="ctrl-card">
-        <div class="cc-lbl">Number of slots</div>
-        <div class="sl-row">
-          <label>Slots</label>
-          <input type="range" id="slotsSlider" min="1" max="10" value="4" oninput="render()">
-          <span class="sl-num" id="slotsNum">4</span>
+  <div class="layout">
+    <div class="panel">
+      <div class="card">
+        <div class="section-label">Each slot can be…</div>
+        <div class="charset-options" id="charset-options">
+          <div class="cs-option active" data-n="3" data-label="colours">
+            <div class="cs-radio"><div class="cs-radio-dot"></div></div>
+            <span class="cs-chars">3 colours</span>
+            <span class="cs-count">3 each</span>
+          </div>
+          <div class="cs-option" data-n="10" data-label="digits">
+            <div class="cs-radio"><div class="cs-radio-dot"></div></div>
+            <span class="cs-chars">0 – 9 digits</span>
+            <span class="cs-count">10 each</span>
+          </div>
+          <div class="cs-option" data-n="26" data-label="letters">
+            <div class="cs-radio"><div class="cs-radio-dot"></div></div>
+            <span class="cs-chars">A – Z letters</span>
+            <span class="cs-count">26 each</span>
+          </div>
         </div>
       </div>
+
+      <div class="card">
+        <div class="section-label">Number of slots</div>
+        <div class="slots-control">
+          <button class="slot-btn rem" id="btn-rem">−</button>
+          <div class="slot-count" id="slot-count">3</div>
+          <button class="slot-btn add" id="btn-add">+</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:12px">
+        <div class="lock-display" id="lock-display"></div>
+        <div class="lock-answer">
+          <div class="lock-ans-num" id="lock-ans-num">27</div>
+          <div class="lock-ans-label">possible combinations</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-label">Time to guess every combo</div>
+        <div class="time-grid" id="time-grid"></div>
+      </div>
     </div>
 
-    <!-- Lock visual -->
-    <div class="card-title">Your lock — each slot can hold any of the allowed characters</div>
-    <div class="lock-display" id="lockDisplay"></div>
-
-    <!-- Result -->
-    <div class="result-section" id="resultSection">
-      <div class="result-formula" id="resFormula"></div>
-      <div class="result-val" id="resVal"></div>
-      <div class="result-sci" id="resSci"></div>
+    <div class="grid-card">
+      <div class="grid-header">
+        <div class="grid-title" id="grid-title">Every possible combination</div>
+        <div class="grid-subtitle" id="grid-subtitle">Hover any cell to see the combination</div>
+      </div>
+      <div class="combo-area" id="combo-area"></div>
     </div>
-
-    <!-- Growth table -->
-    <div class="card-title">How combinations grow with each slot added</div>
-    <table class="growth-table" id="growthTable">
-      <thead><tr><th>Slots</th><th>Formula</th><th>Combinations</th><th>Scientific</th></tr></thead>
-      <tbody id="growthBody"></tbody>
-    </table>
-
-    <div class="insight" id="insight"></div>
   </div>
 </div>
 
 <script>
-function sup(n){const map={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','10':'¹⁰'};return String(n).split('').map(c=>map[c]||c).join('');}
+let N = 3;
+let slots = 3;
 
-const PRESETS={
-  digits4:{digits:true,upper:false,lower:false,slots:4},
-  digits5:{digits:true,upper:false,lower:false,slots:5},
-  letters6:{digits:false,upper:true,lower:false,slots:6},
-  alpha5:{digits:true,upper:true,lower:false,slots:5},
-  mobile:{digits:true,upper:false,lower:false,slots:10},
-};
+const MAX_CELLS = 120;
 
-function loadPreset(key){
-  const p=PRESETS[key];
-  document.getElementById('useDigits').checked=p.digits;
-  document.getElementById('useUpper').checked=p.upper;
-  document.getElementById('useLower').checked=p.lower;
-  document.getElementById('slotsSlider').value=p.slots;
-  document.querySelectorAll('.psc').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase().includes(key.replace(/[0-9]/g,''))));
-  render();
+// Colour styles for N=3
+const CLR = [
+  {bg:'#fde0e0',border:'#c0392b99',text:'#8a1a10'},
+  {bg:'#fef3d0',border:'#e0802099',text:'#7a4a00'},
+  {bg:'#d8f2e4',border:'#1a7a4a99',text:'#0a3a20'},
+];
+const CLR_CHARS = ['R','Y','G'];
+const DIG_CHARS = '0123456789'.split('');
+const ALP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+// Slot palette for digits/letters (one colour per group = first-slot value)
+const PALETTES = [
+  {bg:'#dde8f8',border:'#9ab4dc',text:'#1a3a6a'},
+  {bg:'#d8f0e8',border:'#8abcaa',text:'#0a3a22'},
+  {bg:'#fde8d8',border:'#e0a888',text:'#5a2a08'},
+  {bg:'#f0daf8',border:'#c8a0dc',text:'#3a1050'},
+  {bg:'#fef4d0',border:'#d0aa50',text:'#5a3a00'},
+  {bg:'#d8eef8',border:'#88b4cc',text:'#0a2a40'},
+  {bg:'#f8dde8',border:'#dc9ab0',text:'#5a1a30'},
+  {bg:'#e4f8d8',border:'#94c480',text:'#1a4010'},
+  {bg:'#f8eed8',border:'#d0b080',text:'#4a3000'},
+  {bg:'#e8e0f8',border:'#a898dc',text:'#2a1860'},
+];
+
+function getChars(){ return N===3?CLR_CHARS:N===10?DIG_CHARS:ALP_CHARS.slice(0,N); }
+
+function cellStyleForGroup(groupIdx){
+  if(N===3) return CLR[groupIdx%3];
+  return PALETTES[groupIdx%PALETTES.length];
 }
 
-function getParams(){
-  const digits=document.getElementById('useDigits').checked;
-  const upper=document.getElementById('useUpper').checked;
-  const lower=document.getElementById('useLower').checked;
-  const slots=parseInt(document.getElementById('slotsSlider').value);
-  let charset=0;
-  let charDesc=[];
-  if(digits){charset+=10;charDesc.push('10 digits');}
-  if(upper){charset+=26;charDesc.push('26 uppercase');}
-  if(lower){charset+=26;charDesc.push('26 lowercase');}
-  return {charset:charset||1,slots,charDesc};
+function getCombos(numSlots, limit){
+  const total=Math.pow(N,numSlots);
+  const lim=Math.min(total,limit||total);
+  const out=[];
+  for(let i=0;i<lim;i++){
+    const c=[];let v=i;
+    for(let k=numSlots-1;k>=0;k--){c[k]=v%N;v=Math.floor(v/N);}
+    out.push(c);
+  }
+  return {combos:out,total};
 }
 
-function toSci(n){
-  if(n===0) return '0';
-  const exp=Math.floor(Math.log10(n));
-  const coeff=Math.round(n/Math.pow(10,exp)*1000)/1000;
-  return `${coeff} × 10${sup(exp)}`;
-}
-
-function fmtBig(n){
-  if(n<1e6) return n.toLocaleString('en-IN');
-  return toSci(n);
-}
-
-function render(){
-  const {charset,slots,charDesc}=getParams();
-  document.getElementById('slotsNum').textContent=slots;
-
-  // Lock display
-  const ld=document.getElementById('lockDisplay');
-  ld.innerHTML='';
-  for(let i=0;i<slots;i++){
-    const slot=document.createElement('div');
-    slot.className='lock-slot filled';
-    slot.innerHTML=`<span class="slot-char">?</span><span class="slot-label">${charset} options</span>`;
-    ld.appendChild(slot);
-    if(i<slots-1){
-      const x=document.createElement('span');
-      x.style.cssText='font-size:18px;color:var(--text3);font-weight:500';
-      x.textContent='×';
-      ld.appendChild(x);
+function renderLock(){
+  const lock=document.getElementById('lock-display');
+  lock.innerHTML='';
+  const chars=getChars();
+  for(let s=0;s<slots;s++){
+    if(s>0){
+      const x=document.createElement('div');
+      x.className='lock-times';x.textContent='×';lock.appendChild(x);
     }
+    const w=document.createElement('div');w.className='lock-slot-vis';
+    const d=document.createElement('div');d.className='lsv-drum';
+    d.textContent=chars[s%N];
+    const l=document.createElement('div');l.className='lsv-n';
+    l.textContent=N+' opts';
+    w.appendChild(d);w.appendChild(l);lock.appendChild(w);
   }
-
-  // Result
-  const total=Math.pow(charset,slots);
-  const charLabel=charset===10?'10':charset===26?'26':charset===36?'36':charset===52?'52':charset.toString();
-  document.getElementById('resFormula').textContent=`${charLabel}${sup(slots)} = ${Array(slots).fill(charLabel).join(' × ')}`;
-  document.getElementById('resVal').textContent=fmtBig(total);
-  document.getElementById('resSci').textContent=total>=1e6?`= ${toSci(total)}`:'';
-
-  // Growth table
-  const tbody=document.getElementById('growthBody');
-  tbody.innerHTML='';
-  for(let s=1;s<=Math.min(slots+3,12);s++){
-    const t=Math.pow(charset,s);
-    const tr=document.createElement('tr');
-    if(s===slots) tr.className='current';
-    tr.innerHTML=`<td>${s}</td><td>${charLabel}${sup(s)}</td><td>${fmtBig(t)}</td><td>${toSci(t)}</td>`;
-    tbody.appendChild(tr);
-  }
-
-  // Insight
-  const ins=document.getElementById('insight');
-  const descStr=charDesc.join(' + ')+(charDesc.length>1?` = ${charset} per slot`:'');
-  ins.innerHTML=`<strong>${descStr}, ${slots} slot${slots!==1?'s':''}:</strong> Each slot independently has ${charset} choices, so the total is ${charset} × ${charset}${slots>2?' × …':''}  = <strong>${charLabel}${sup(slots)} = ${fmtBig(total)}</strong> combinations.
-    <span class="eq">Adding one more slot multiplies the count by ${charset} (not adds!)</span>
-    This is why a ${slots}-slot code with ${charset} options is ${charset}× harder to crack than a ${slots-1}-slot code.`;
+  const total=Math.pow(N,slots);
+  document.getElementById('lock-ans-num').textContent=fmtN(total);
 }
 
-render();
+function renderGrid(){
+  const area=document.getElementById('combo-area');
+  area.innerHTML='';
+  const chars=getChars();
+  const total=Math.pow(N,slots);
+  document.getElementById('grid-title').textContent=
+    'Every possible combination — '+fmtN(total)+' total';
+
+  if(total<=MAX_CELLS){
+    const {combos}=getCombos(slots,total);
+    // Group by first slot value
+    for(let g=0;g<N;g++){
+      const group=combos.filter(c=>c[0]===g);
+      if(!group.length) continue;
+      const sty=cellStyleForGroup(g);
+
+      const grpEl=document.createElement('div');grpEl.className='slot-group';
+      const lbl=document.createElement('div');lbl.className='group-label';
+      lbl.innerHTML=`<span style="font-size:11px;color:${sty.text};background:${sty.bg};border:1px solid ${sty.border};padding:2px 9px;border-radius:6px;font-family:var(--mono);font-weight:700">Slot 1 = ${chars[g]}</span><span class="group-label-line"></span><span style="font-size:10px;color:var(--text3)">${group.length} combos</span>`;
+      grpEl.appendChild(lbl);
+
+      const cellSz=total<=9?44:total<=27?36:total<=81?28:22;
+      const fSz=cellSz>=36?14:cellSz>=28?11:9;
+
+      const grid=document.createElement('div');grid.className='combos-grid';
+      group.forEach(combo=>{
+        const cell=document.createElement('div');cell.className='combo-cell';
+        // colour by last slot
+        const lastSty=N===3?CLR[combo[combo.length-1]%3]:sty;
+        cell.style.cssText=`width:${cellSz}px;height:${cellSz}px;font-size:${fSz}px;background:${lastSty.bg};border-color:${lastSty.border};color:${lastSty.text}`;
+        cell.textContent=combo.map(i=>chars[i]).join('');
+        cell.title=combo.map(i=>chars[i]).join('');
+        grid.appendChild(cell);
+      });
+      grpEl.appendChild(grid);
+      area.appendChild(grpEl);
+    }
+
+    if(slots>1){
+      const prev=Math.pow(N,slots-1);
+      const b=document.createElement('div');b.className='multiply-banner';
+      b.innerHTML=`<strong>Adding slot ${slots} multiplied by ${N}:</strong> ${fmtN(prev)} combos became ${fmtN(prev)} × ${N} = <strong>${fmtN(total)}</strong>. Each existing combo just grew ${N} children.`;
+      area.appendChild(b);
+    }
+
+  } else {
+    // Too many — show 2 partial groups then fog
+    const perGroup=Math.pow(N,slots-1);
+    const show=Math.min(2,N);
+    const cellSz=24;const fSz=10;
+
+    for(let g=0;g<show;g++){
+      const sty=cellStyleForGroup(g);
+      const grpEl=document.createElement('div');grpEl.className='slot-group';
+      const lbl=document.createElement('div');lbl.className='group-label';
+      lbl.innerHTML=`<span style="font-size:11px;color:${sty.text};background:${sty.bg};border:1px solid ${sty.border};padding:2px 9px;border-radius:6px;font-family:var(--mono);font-weight:700">Slot 1 = ${chars[g]}</span><span class="group-label-line"></span><span style="font-size:10px;color:var(--text3)">${fmtN(perGroup)} combos here alone</span>`;
+      grpEl.appendChild(lbl);
+
+      const grid=document.createElement('div');grid.className='combos-grid';
+      const sample=Math.min(perGroup,14);
+      for(let i=0;i<sample;i++){
+        const val=g*perGroup+i;
+        const combo=[];let v=val;
+        for(let k=slots-1;k>=0;k--){combo[k]=v%N;v=Math.floor(v/N);}
+        const cell=document.createElement('div');cell.className='combo-cell';
+        cell.style.cssText=`width:${cellSz}px;height:${cellSz}px;font-size:${fSz}px;background:${sty.bg};border-color:${sty.border};color:${sty.text}`;
+        cell.textContent=combo.map(i=>chars[i]).join('');
+        grid.appendChild(cell);
+      }
+      const ell=document.createElement('span');
+      ell.style.cssText='font-size:18px;color:var(--text3);padding:0 4px;align-self:center';
+      ell.textContent='…';grid.appendChild(ell);
+      grpEl.appendChild(grid);area.appendChild(grpEl);
+    }
+
+    const fog=document.createElement('div');fog.className='fog-section';
+    const prev=Math.pow(N,slots-1);
+    fog.innerHTML=`<div class="fog-dots">· · ·</div><div class="fog-formula">${Array(slots).fill(N).join(' × ')} =</div><div class="fog-number">${fmtN(total)}</div><div class="fog-label">There are ${N} groups like those above, each with ${fmtN(perGroup)} combos — far too many to show!</div>`;
+    area.appendChild(fog);
+
+    const b=document.createElement('div');b.className='multiply-banner';
+    b.innerHTML=`<strong>Each new slot multiplies by ${N}:</strong> ${fmtN(prev)} → ${fmtN(prev)} × ${N} = <strong>${fmtN(total)}</strong>. Not adding — multiplying!`;
+    area.appendChild(b);
+  }
+}
+
+function renderTime(){
+  const total=Math.pow(N,slots);
+  const grid=document.getElementById('time-grid');grid.innerHTML='';
+  [{label:'1 / second',rate:1},{label:'1,000 / sec',rate:1e3},{label:'1M / sec',rate:1e6},{label:'1B / sec',rate:1e9}].forEach(({label,rate})=>{
+    const card=document.createElement('div');card.className='time-card';
+    card.innerHTML=`<div class="tc-rate">${label}</div><div class="tc-time">${fmtTime(total/rate)}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+function fmtN(n){
+  if(n<1000) return String(Math.round(n));
+  if(n<1e7)  return Math.round(n).toLocaleString('en-IN');
+  const e=Math.floor(Math.log10(n));
+  return (n/Math.pow(10,e)).toFixed(1)+'×10'+'⁰¹²³⁴⁵⁶⁷⁸⁹'.split('').filter((_,i)=>String(e).includes(i)).join('')||String(e).split('').map(d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]).join('');
+}
+
+function sup(n){return String(n).split('').map(d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]||d).join('')}
+function fmtN2(n){
+  if(n<1000) return String(Math.round(n));
+  if(n<1e7)  return Math.round(n).toLocaleString('en-IN');
+  const e=Math.floor(Math.log10(n));
+  return (n/Math.pow(10,e)).toFixed(1)+'×10'+sup(e);
+}
+
+function fmtTime(s){
+  if(s<1)    return '<1 sec';
+  if(s<60)   return s.toFixed(1)+' sec';
+  if(s<3600) return (s/60).toFixed(1)+' min';
+  if(s<86400)return (s/3600).toFixed(1)+' hrs';
+  if(s<86400*365)return (s/86400).toFixed(0)+' days';
+  return (s/(86400*365)).toExponential(1)+' yrs';
+}
+
+// Override fmtN to use fmtN2
+const fmtN_orig=fmtN;
+window.fmtN=fmtN2;
+
+document.getElementById('btn-add').addEventListener('click',()=>{if(slots<8){slots++;upd();}});
+document.getElementById('btn-rem').addEventListener('click',()=>{if(slots>1){slots--;upd();}});
+document.querySelectorAll('.cs-option').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    document.querySelectorAll('.cs-option').forEach(o=>o.classList.remove('active'));
+    opt.classList.add('active');N=+opt.dataset.n;upd();
+  });
+});
+
+function upd(){
+  document.getElementById('slot-count').textContent=slots;
+  document.getElementById('btn-add').disabled=slots>=8;
+  document.getElementById('btn-rem').disabled=slots<=1;
+  renderLock();renderGrid();renderTime();
+}
+upd();
 </script>
 </body>
 </html>
