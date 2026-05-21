@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Password Counter — Ganita Prakash Grade 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f4f0;--surface:#fff;--surface2:#f0ede8;--border:#d8d4cc;
+  --text:#1a1814;--text2:#5a5650;--text3:#9a958e;
+  --blue:#2c5f9e;--red:#c0392b;--green:#1a7a4a;--orange:#e08020;
+  --font:'DM Sans',-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+.page{max-width:860px;margin:0 auto;padding:28px 20px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
+.title{font-size:22px;font-weight:700;margin-bottom:5px}
+.subtitle{font-size:14px;color:var(--text2);margin-bottom:22px;max-width:560px;line-height:1.5}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
+.card-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:14px}
+
+/* Lock builder */
+.lock-display{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:18px 0;min-height:60px;align-items:center}
+.lock-slot{width:52px;height:64px;border:2px solid var(--border);border-radius:10px;background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all .15s;cursor:default}
+.lock-slot.filled{border-color:var(--blue);background:rgba(44,95,158,.08)}
+.lock-slot .slot-char{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--blue)}
+.lock-slot .slot-label{font-size:9px;color:var(--text3);font-weight:600;text-align:center;line-height:1.2}
+
+/* Controls */
+.ctrl-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+@media(max-width:500px){.ctrl-grid{grid-template-columns:1fr}}
+.ctrl-card{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:13px 15px}
+.ctrl-card .cc-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:8px}
+.checkbox-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--text2)}
+.checkbox-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--blue);cursor:pointer}
+.sl-row{display:flex;align-items:center;gap:10px;margin-top:4px}
+.sl-row label{font-size:13px;font-weight:500;color:var(--text2)}
+.sl-row input[type=range]{flex:1;height:5px;accent-color:var(--blue);cursor:pointer}
+.sl-num{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--blue);min-width:24px;text-align:right}
+
+/* Big result */
+.result-section{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:16px 20px;text-align:center;margin-bottom:14px}
+.result-formula{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text2);margin-bottom:6px}
+.result-val{font-family:var(--mono);font-size:32px;font-weight:700;color:var(--blue);line-height:1.1}
+.result-sci{font-size:14px;color:var(--text3);font-family:var(--mono);margin-top:4px}
+
+/* Growth table */
+.growth-table{width:100%;border-collapse:collapse;font-size:13px}
+.growth-table th{padding:7px 10px;border-bottom:2px solid var(--border);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);background:var(--surface2);text-align:right}
+.growth-table th:first-child{text-align:center}
+.growth-table td{padding:7px 10px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:12.5px;text-align:right}
+.growth-table td:first-child{text-align:center;font-weight:700;color:var(--text2)}
+.growth-table tr.current td{background:#fffbeb}
+.growth-table tr:last-child td{border-bottom:none}
+
+/* Presets */
+.preset-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.psc{padding:5px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:12.5px;font-weight:500;color:var(--text2);background:var(--surface);cursor:pointer;font-family:var(--font)}
+.psc:hover{border-color:var(--blue);color:var(--blue)}
+.psc.active{background:var(--blue);border-color:var(--blue);color:#fff}
+
+.insight{background:#fff8f0;border:1.5px solid #f0d8c0;border-radius:10px;padding:13px 18px;font-size:13.5px;color:#6b4400;line-height:1.65}
+.insight strong{color:#a05000}
+.insight .eq{font-family:var(--mono);font-size:13px;display:block;margin:2px 0}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="lbl">Chapter 2 · Power Play</div>
+  <div class="title">Password Counter</div>
+  <div class="subtitle">How many passwords are possible? Each extra digit or letter multiplies the count — this is why longer passwords are exponentially harder to guess.</div>
+
+  <div class="card">
+    <!-- Presets -->
+    <div class="preset-row">
+      <span style="font-size:12px;color:var(--text3);font-weight:500">Presets:</span>
+      <button class="psc active" onclick="loadPreset('digits4')">4-digit PIN</button>
+      <button class="psc" onclick="loadPreset('digits5')">5-digit lock</button>
+      <button class="psc" onclick="loadPreset('letters6')">6-letter code</button>
+      <button class="psc" onclick="loadPreset('alpha5')">5-char alphanumeric</button>
+      <button class="psc" onclick="loadPreset('mobile')">Mobile number (10 digits)</button>
+    </div>
+
+    <!-- Controls -->
+    <div class="ctrl-grid">
+      <div class="ctrl-card">
+        <div class="cc-lbl">Character types allowed</div>
+        <label class="checkbox-row"><input type="checkbox" id="useDigits" checked onchange="render()"> Digits (0–9) — 10 options</label>
+        <label class="checkbox-row"><input type="checkbox" id="useUpper" onchange="render()"> Uppercase letters (A–Z) — 26 options</label>
+        <label class="checkbox-row"><input type="checkbox" id="useLower" onchange="render()"> Lowercase letters (a–z) — 26 options</label>
+      </div>
+      <div class="ctrl-card">
+        <div class="cc-lbl">Number of slots</div>
+        <div class="sl-row">
+          <label>Slots</label>
+          <input type="range" id="slotsSlider" min="1" max="10" value="4" oninput="render()">
+          <span class="sl-num" id="slotsNum">4</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lock visual -->
+    <div class="card-title">Your lock — each slot can hold any of the allowed characters</div>
+    <div class="lock-display" id="lockDisplay"></div>
+
+    <!-- Result -->
+    <div class="result-section" id="resultSection">
+      <div class="result-formula" id="resFormula"></div>
+      <div class="result-val" id="resVal"></div>
+      <div class="result-sci" id="resSci"></div>
+    </div>
+
+    <!-- Growth table -->
+    <div class="card-title">How combinations grow with each slot added</div>
+    <table class="growth-table" id="growthTable">
+      <thead><tr><th>Slots</th><th>Formula</th><th>Combinations</th><th>Scientific</th></tr></thead>
+      <tbody id="growthBody"></tbody>
+    </table>
+
+    <div class="insight" id="insight"></div>
+  </div>
+</div>
+
+<script>
+function sup(n){const map={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','10':'¹⁰'};return String(n).split('').map(c=>map[c]||c).join('');}
+
+const PRESETS={
+  digits4:{digits:true,upper:false,lower:false,slots:4},
+  digits5:{digits:true,upper:false,lower:false,slots:5},
+  letters6:{digits:false,upper:true,lower:false,slots:6},
+  alpha5:{digits:true,upper:true,lower:false,slots:5},
+  mobile:{digits:true,upper:false,lower:false,slots:10},
+};
+
+function loadPreset(key){
+  const p=PRESETS[key];
+  document.getElementById('useDigits').checked=p.digits;
+  document.getElementById('useUpper').checked=p.upper;
+  document.getElementById('useLower').checked=p.lower;
+  document.getElementById('slotsSlider').value=p.slots;
+  document.querySelectorAll('.psc').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase().includes(key.replace(/[0-9]/g,''))));
+  render();
+}
+
+function getParams(){
+  const digits=document.getElementById('useDigits').checked;
+  const upper=document.getElementById('useUpper').checked;
+  const lower=document.getElementById('useLower').checked;
+  const slots=parseInt(document.getElementById('slotsSlider').value);
+  let charset=0;
+  let charDesc=[];
+  if(digits){charset+=10;charDesc.push('10 digits');}
+  if(upper){charset+=26;charDesc.push('26 uppercase');}
+  if(lower){charset+=26;charDesc.push('26 lowercase');}
+  return {charset:charset||1,slots,charDesc};
+}
+
+function toSci(n){
+  if(n===0) return '0';
+  const exp=Math.floor(Math.log10(n));
+  const coeff=Math.round(n/Math.pow(10,exp)*1000)/1000;
+  return `${coeff} × 10${sup(exp)}`;
+}
+
+function fmtBig(n){
+  if(n<1e6) return n.toLocaleString('en-IN');
+  return toSci(n);
+}
+
+function render(){
+  const {charset,slots,charDesc}=getParams();
+  document.getElementById('slotsNum').textContent=slots;
+
+  // Lock display
+  const ld=document.getElementById('lockDisplay');
+  ld.innerHTML='';
+  for(let i=0;i<slots;i++){
+    const slot=document.createElement('div');
+    slot.className='lock-slot filled';
+    slot.innerHTML=`<span class="slot-char">?</span><span class="slot-label">${charset} options</span>`;
+    ld.appendChild(slot);
+    if(i<slots-1){
+      const x=document.createElement('span');
+      x.style.cssText='font-size:18px;color:var(--text3);font-weight:500';
+      x.textContent='×';
+      ld.appendChild(x);
+    }
+  }
+
+  // Result
+  const total=Math.pow(charset,slots);
+  const charLabel=charset===10?'10':charset===26?'26':charset===36?'36':charset===52?'52':charset.toString();
+  document.getElementById('resFormula').textContent=`${charLabel}${sup(slots)} = ${Array(slots).fill(charLabel).join(' × ')}`;
+  document.getElementById('resVal').textContent=fmtBig(total);
+  document.getElementById('resSci').textContent=total>=1e6?`= ${toSci(total)}`:'';
+
+  // Growth table
+  const tbody=document.getElementById('growthBody');
+  tbody.innerHTML='';
+  for(let s=1;s<=Math.min(slots+3,12);s++){
+    const t=Math.pow(charset,s);
+    const tr=document.createElement('tr');
+    if(s===slots) tr.className='current';
+    tr.innerHTML=`<td>${s}</td><td>${charLabel}${sup(s)}</td><td>${fmtBig(t)}</td><td>${toSci(t)}</td>`;
+    tbody.appendChild(tr);
+  }
+
+  // Insight
+  const ins=document.getElementById('insight');
+  const descStr=charDesc.join(' + ')+(charDesc.length>1?` = ${charset} per slot`:'');
+  ins.innerHTML=`<strong>${descStr}, ${slots} slot${slots!==1?'s':''}:</strong> Each slot independently has ${charset} choices, so the total is ${charset} × ${charset}${slots>2?' × …':''}  = <strong>${charLabel}${sup(slots)} = ${fmtBig(total)}</strong> combinations.
+    <span class="eq">Adding one more slot multiplies the count by ${charset} (not adds!)</span>
+    This is why a ${slots}-slot code with ${charset} options is ${charset}× harder to crack than a ${slots-1}-slot code.`;
+}
+
+render();
+</script>
+</body>
+</html>
