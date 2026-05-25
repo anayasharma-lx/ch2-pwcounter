@@ -5,636 +5,601 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Password Counter — Ganita Prakash Grade 8</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --paper:#faf8f4; --paper2:#f3f0ea; --paper3:#e8e3d8;
-  --ink:#1c1a16;   --ink2:#4a4640;   --ink3:#8a8580;
-  --rule:#d4cfc5;
-  --teal:#1d6a72;  --teal-bg:#e8f4f5;
-  --rust:#b84a2a;  --rust-bg:#fdf0ec;
-  --gold:#c08030;  --gold-bg:#fdf5e8;
-  --sage:#3a6a48;  --sage-bg:#eaf2ec;
-  --violet:#6a4a90;
-  --font:'DM Sans',sans-serif;
-  --serif:'Lora',Georgia,serif;
+  --white:#ffffff;
+  --off:#f5f5f2;
+  --light:#e8e8e4;
+  --mid:#c0c0bc;
+  --steel:#888884;
+  --iron:#444440;
+  --coal:#1a1a18;
+  --black:#08080a;
+  --red:#e03020;
+  --red-bg:#ffecea;
+  --green:#1a8a4a;
+  --green-bg:#e4f5ec;
+  --yellow:#c09010;
+  --yellow-bg:#fdf8e0;
+  --blue:#1850c0;
+  --blue-bg:#e4ecff;
+  --sans:'Syne',system-ui,sans-serif;
   --mono:'DM Mono',ui-monospace,monospace;
-  --shadow:0 2px 12px rgba(28,26,22,.08);
-
-  /* Colour palette for 3-colour mode */
-  --c0:#d94f3d; --c0bg:#fdecea; --c0border:#e89080;
-  --c1:#d48a20; --c1bg:#fdf3e0; --c1border:#e8b870;
-  --c2:#2a7a4a; --c2bg:#e4f5ec; --c2border:#80c0a0;
 }
+html,body{width:100%;height:100%;overflow:hidden}
 body{
-  font-family:var(--font);background:var(--paper);color:var(--ink);
-  min-height:100vh;-webkit-font-smoothing:antialiased;
-  padding:28px 20px 60px;line-height:1.6;
-  background-image:
-    radial-gradient(circle at 15% 30%,rgba(192,128,48,.04) 0,transparent 50%),
-    radial-gradient(circle at 85% 70%,rgba(29,106,114,.04) 0,transparent 50%);
+  font-family:var(--sans);
+  background:var(--white);
+  color:var(--coal);
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;
+  position:fixed;inset:0;
 }
-.app{max-width:940px;margin:0 auto}
 
 /* ── HEADER ── */
-.header{margin-bottom:22px;padding-bottom:18px;border-bottom:1.5px solid var(--rule)}
-.chapter-badge{display:inline-flex;align-items:center;gap:8px;background:var(--paper2);border:1.5px solid var(--rule);border-radius:20px;padding:4px 14px 4px 10px;font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
-.badge-num{width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700;font-family:var(--mono);display:flex;align-items:center;justify-content:center}
-h1{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-.3px;line-height:1.2;margin-bottom:5px}
-.header-sub{font-size:14px;color:var(--ink2);max-width:540px;line-height:1.55}
-
-/* ── CARD ── */
-.card{background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:var(--shadow)}
-
-/* ── CONCEPT ── */
-.concept{background:var(--gold-bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 16px;margin-bottom:20px;font-family:var(--serif);font-style:italic;font-size:14px;color:#4a3010;line-height:1.65}
-.concept strong{font-style:normal;font-weight:700;color:#3a2008}
-
-/* ── TWO-COL LAYOUT ── */
-.layout{display:grid;grid-template-columns:240px 1fr;gap:18px;align-items:start}
-@media(max-width:680px){.layout{grid-template-columns:1fr}}
-
-/* ── LEFT PANEL ── */
-.left-panel{display:flex;flex-direction:column;gap:12px}
-
-.sec-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ink3);margin-bottom:8px}
-
-/* Charset picker */
-.charset-btns{display:flex;flex-direction:column;gap:5px}
-.cs-btn{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1.5px solid var(--rule);border-radius:9px;cursor:pointer;transition:all .15s;background:#fff;font-family:var(--font)}
-.cs-btn:hover{border-color:var(--ink3)}
-.cs-btn.active{border-color:var(--teal);background:var(--teal-bg)}
-.cs-swatch{display:flex;gap:3px}
-.cs-dot{width:12px;height:12px;border-radius:50%}
-.cs-name{font-size:13px;font-weight:600;color:var(--ink);flex:1}
-.cs-count{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink3)}
-
-/* Slot counter */
-.slot-row{display:flex;align-items:center;gap:0;background:#fff;border:1.5px solid var(--rule);border-radius:10px;overflow:hidden}
-.sl-btn{width:46px;height:46px;border:none;background:var(--paper2);font-size:22px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;user-select:none;flex-shrink:0}
-.sl-btn:hover:not(:disabled){background:var(--paper3)}
-.sl-btn:active:not(:disabled){transform:scale(.9)}
-.sl-btn:disabled{opacity:.3;cursor:default}
-.sl-btn.add{color:var(--sage)}
-.sl-btn.rem{color:var(--rust)}
-.sl-val{flex:1;text-align:center;font-family:var(--mono);font-size:22px;font-weight:800;color:var(--teal)}
-
-/* Count card */
-.count-card{background:var(--teal);border-radius:11px;padding:16px;text-align:center;color:#fff}
-.cc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;opacity:.75;margin-bottom:4px}
-.cc-num{font-family:var(--mono);font-size:36px;font-weight:800;line-height:1;margin-bottom:4px}
-.cc-formula{font-family:var(--mono);font-size:13px;opacity:.85;margin-bottom:8px}
-
-/* Multiply badge */
-.mult-badge{
-  display:none;background:var(--gold);color:#fff;
-  border-radius:20px;padding:6px 14px;
-  font-family:var(--mono);font-size:14px;font-weight:700;
-  text-align:center;animation:popIn .4s cubic-bezier(.34,1.56,.64,1)
+.top{
+  display:flex;align-items:stretch;
+  border-bottom:3px solid var(--coal);
+  flex-shrink:0;
+  background:var(--coal);
+  color:var(--white);
 }
-.mult-badge.show{display:block}
-@keyframes popIn{0%{transform:scale(0)}60%{transform:scale(1.1)}100%{transform:scale(1)}}
+.top-left{
+  padding:10px 18px;
+  border-right:2px solid var(--iron);
+  display:flex;flex-direction:column;justify-content:center;
+  min-width:180px;
+}
+.top-ch{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);margin-bottom:2px;font-family:var(--mono);}
+.top-title{font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--white);}
+.top-center{flex:1;padding:10px 18px;display:flex;align-items:center}
+.top-concept{
+  font-size:12px;color:var(--mid);font-family:var(--mono);
+  border-left:2px solid var(--iron);padding-left:12px;line-height:1.6;
+}
+.top-concept strong{color:var(--white)}
+.top-right{
+  border-left:2px solid var(--iron);padding:10px 16px;
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-end;
+  gap:3px;min-width:140px;
+}
+.tr-lbl{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);font-family:var(--mono);}
+.tr-big{font-size:22px;font-weight:800;color:var(--white);font-family:var(--mono);}
 
-/* Time hint */
-.time-hint{background:var(--paper2);border:1.5px solid var(--rule);border-radius:9px;padding:10px 12px;font-size:12px;color:var(--ink2);line-height:1.5}
-.time-hint strong{color:var(--ink);font-weight:700}
+/* ── MAIN ── */
+.main{
+  flex:1;display:grid;
+  grid-template-columns:280px 1fr;
+  overflow:hidden;min-height:0;
+}
 
-/* ── RIGHT: TREE VISUALISER ── */
-.viz-card{background:#fff;border:1.5px solid var(--rule);border-radius:14px;overflow:hidden;min-height:460px;display:flex;flex-direction:column}
-.viz-header{padding:14px 18px;border-bottom:1.5px solid var(--rule);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.vh-title{font-size:13px;font-weight:700;color:var(--ink)}
-.vh-sub{font-size:12px;color:var(--ink3)}
-.viz-body{flex:1;padding:18px;overflow:auto;display:flex;flex-direction:column;justify-content:center}
+/* ── LEFT ── */
+.left{
+  border-right:2px solid var(--coal);
+  display:flex;flex-direction:column;
+  background:var(--off);
+  overflow:hidden;
+}
+.lp{
+  padding:14px 16px;
+  border-bottom:1.5px solid var(--light);
+  flex-shrink:0;
+}
+.lp-lbl{
+  font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--steel);font-family:var(--mono);margin-bottom:10px;
+}
 
-/* ── THE TREE ── */
-.tree-wrap{display:flex;flex-direction:column;gap:0;align-items:stretch}
+/* charset options */
+.cs-opts{display:flex;flex-direction:column;gap:5px}
+.cs-opt{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;
+  border:1.5px solid var(--light);
+  border-radius:0;
+  cursor:pointer;transition:all .12s;background:var(--white);
+}
+.cs-opt:hover{border-color:var(--steel)}
+.cs-opt.active{
+  border-color:var(--coal);
+  background:var(--coal);color:var(--white);
+}
+.cs-opt.active .cs-name{color:var(--white)}
+.cs-opt.active .cs-cnt{color:var(--mid)}
+.cs-swatch{display:flex;gap:3px}
+.cs-dot{width:10px;height:10px}
+.cs-name{font-size:12px;font-weight:700;flex:1;font-family:var(--mono)}
+.cs-cnt{font-size:11px;color:var(--steel);font-family:var(--mono)}
 
-/* Each "level" = one row of branches */
-.tree-level{display:flex;flex-direction:column;gap:10px}
-.tree-level+.tree-level{margin-top:0}
+/* slot counter */
+.slot-ctrl{
+  display:flex;align-items:stretch;
+  border:2px solid var(--coal);
+  background:var(--white);
+}
+.sc-btn{
+  width:44px;
+  border:none;background:var(--coal);
+  font-size:22px;font-weight:700;color:var(--white);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .12s;
+  flex-shrink:0;
+}
+.sc-btn:hover:not(:disabled){background:var(--iron)}
+.sc-btn:disabled{opacity:.25;cursor:not-allowed}
+.sc-mid{flex:1;text-align:center;padding:10px;font-family:var(--mono);font-size:26px;font-weight:700;color:var(--coal)}
 
-/* A slot column header */
-.slot-header{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3);margin-bottom:10px;text-align:center}
+/* total display */
+.total-box{
+  background:var(--coal);
+  padding:14px 16px;
+  text-align:center;
+}
+.tb-lbl{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--steel);font-family:var(--mono);margin-bottom:6px}
+.tb-num{font-family:var(--mono);font-size:36px;font-weight:700;color:var(--white);line-height:1}
+.tb-formula{font-family:var(--mono);font-size:11px;color:var(--steel);margin-top:6px}
+.tb-mult{
+  display:none;
+  margin-top:8px;
+  padding:5px 12px;
+  background:var(--yellow-bg);
+  border:1.5px solid var(--yellow);
+  font-family:var(--mono);font-size:12px;font-weight:700;color:var(--yellow);
+  animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both;
+  text-align:center;
+}
+.tb-mult.show{display:block}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
 
-/* Branch group: a parent node + its children */
-.branch-group{display:flex;align-items:flex-start;gap:0}
+/* time hint */
+.time-box{
+  padding:10px 12px;
+  font-family:var(--mono);font-size:11px;color:var(--steel);line-height:1.55;
+  border-top:1.5px solid var(--light);flex:1;
+}
+.time-box strong{color:var(--coal)}
 
-/* A single node pill */
+/* ── RIGHT ── */
+.right{
+  background:var(--white);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.r-hdr{
+  padding:12px 18px;
+  border-bottom:1.5px solid var(--light);
+  display:flex;align-items:center;gap:10px;
+  flex-shrink:0;
+}
+.rh-title{font-size:12px;font-weight:700;color:var(--coal);flex:1}
+.rh-sub{font-size:11px;color:var(--steel);font-family:var(--mono)}
+
+.viz-body{
+  flex:1;padding:16px 18px;
+  overflow-y:auto;overflow-x:hidden;
+  scrollbar-width:thin;scrollbar-color:var(--light) transparent;
+}
+.viz-body::-webkit-scrollbar{width:4px}
+.viz-body::-webkit-scrollbar-thumb{background:var(--light)}
+
+/* tree node */
 .node{
   display:inline-flex;align-items:center;justify-content:center;
-  border-radius:8px;border:2px solid;font-family:var(--mono);
-  font-weight:700;user-select:none;flex-shrink:0;
-  transition:transform .18s;
+  border:2px solid;
+  font-family:var(--mono);font-weight:700;
+  transition:transform .15s;cursor:default;flex-shrink:0;
 }
-.node:hover{transform:scale(1.12);z-index:2;position:relative}
+.node:hover{transform:scale(1.1);z-index:2;position:relative}
 
-/* The connector lines between levels */
-.branch-lines{display:flex;flex-direction:column;justify-content:space-around;align-self:stretch;padding:0 4px}
-.branch-line{height:1.5px;background:var(--rule);margin:auto 0;flex:1}
+/* block group */
+.blk-grp{margin-bottom:18px}
+.blk-lbl{
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--steel);font-family:var(--mono);
+  margin-bottom:8px;
+  display:flex;align-items:center;gap:8px;
+}
+.blk-lbl::after{content:'';flex:1;height:1px;background:var(--light)}
+.blk-row{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
 
-/* Grid for leaf nodes (final level) */
-.leaf-grid{display:flex;flex-wrap:wrap;gap:4px}
-.leaf-node{border-radius:6px;border:1.5px solid;font-family:var(--mono);font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* fog */
+.fog-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  padding:24px;
+  background:var(--off);
+  border:2px dashed var(--light);
+  text-align:center;gap:10px;
+}
+.fog-big{font-family:var(--mono);font-size:48px;font-weight:700;color:var(--coal)}
+.fog-formula{font-family:var(--mono);font-size:13px;color:var(--steel)}
+.fog-desc{font-size:12px;color:var(--steel);max-width:280px;line-height:1.6;font-family:var(--mono)}
 
-/* Fog overlay */
-.fog-box{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:32px 20px;background:var(--paper2);border-radius:10px;border:1.5px dashed var(--rule)}
-.fog-num{font-family:var(--mono);font-size:52px;font-weight:800;color:var(--teal);line-height:1}
-.fog-formula{font-family:var(--mono);font-size:15px;color:var(--ink2);font-weight:600}
-.fog-desc{font-size:13px;color:var(--ink2);max-width:300px;line-height:1.6}
-.fog-dots{font-size:36px;color:var(--rule);letter-spacing:8px}
+/* insight */
+.insight-bar{
+  border-top:1.5px solid var(--light);
+  padding:11px 18px;
+  font-size:11px;color:var(--iron);
+  font-family:var(--mono);line-height:1.6;
+  background:var(--off);
+  flex-shrink:0;
+}
+.insight-bar strong{color:var(--coal)}
 
-/* ── INSIGHT ── */
-.insight{background:var(--gold-bg);border:1px solid #e0c080;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 14px;font-size:13px;color:#6b4400;line-height:1.65;margin-top:14px}
-.insight strong{color:#4a2e00}
+/* COLORS for 3-color mode */
+.c0-node{background:#ffecea;border-color:#e03020;color:#7a0a08}
+.c1-node{background:#fdf8e0;border-color:#c09010;color:#5a3800}
+.c2-node{background:#e4f5ec;border-color:#1a8a4a;color:#083a1a}
+.c3-node{background:#e4ecff;border-color:#1850c0;color:#0a1c58}
+.c4-node{background:#f5eaff;border-color:#7030b0;color:#320848}
+.c5-node{background:#fff0e4;border-color:#c05010;color:#4a1a08}
+.c6-node{background:#e4f8ff;border-color:#0870a0;color:#032838}
+.c7-node{background:#ffeef5;border-color:#b03060;color:#480820}
+.c8-node{background:#f0ffe4;border-color:#507810;color:#1a2804}
+.c9-node{background:#faf0e4;border-color:#a06018;color:#3a2008}
 </style>
 </head>
 <body>
-<div class="app">
-  <div class="header">
-    <div class="chapter-badge"><div class="badge-num">2</div>Chapter 2 · Power Play</div>
-    <h1>Password Counter</h1>
-    <p class="header-sub">Adding one more slot doesn't add possibilities — it multiplies them. Watch each combination grow children.</p>
+
+<!-- HEADER -->
+<div class="top">
+  <div class="top-left">
+    <div class="top-ch">Ch·02 · Power Play</div>
+    <div class="top-title">Password Counter</div>
   </div>
-
-  <div class="card">
-    <div class="concept">
-      <strong>The key idea:</strong> each slot you add multiplies the total by the number of choices. 3 colours × 3 colours × 3 colours = 3³ = 27 — not 3+3+3=9. Adding slots is <em>exponentiation</em>, not addition.
+  <div class="top-center">
+    <div class="top-concept">
+      <strong>Key insight:</strong> each slot you add doesn't add possibilities — it <strong>multiplies</strong> them. 3³ = 27, not 3×3=9.
     </div>
-
-    <div class="layout">
-      <!-- LEFT PANEL -->
-      <div class="left-panel">
-
-        <div>
-          <div class="sec-lbl">Each slot can be</div>
-          <div class="charset-btns" id="charset-btns">
-            <button class="cs-btn active" data-n="3">
-              <div class="cs-swatch">
-                <div class="cs-dot" style="background:var(--c0)"></div>
-                <div class="cs-dot" style="background:var(--c1)"></div>
-                <div class="cs-dot" style="background:var(--c2)"></div>
-              </div>
-              <span class="cs-name">3 colours</span>
-              <span class="cs-count">n=3</span>
-            </button>
-            <button class="cs-btn" data-n="10">
-              <div class="cs-swatch" style="gap:1px">
-                <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink2)">0–9</span>
-              </div>
-              <span class="cs-name">10 digits</span>
-              <span class="cs-count">n=10</span>
-            </button>
-            <button class="cs-btn" data-n="26">
-              <div class="cs-swatch">
-                <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink2)">A–Z</span>
-              </div>
-              <span class="cs-name">26 letters</span>
-              <span class="cs-count">n=26</span>
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <div class="sec-lbl">Number of slots</div>
-          <div class="slot-row">
-            <button class="sl-btn rem" id="btn-rem">−</button>
-            <div class="sl-val" id="sl-val">3</div>
-            <button class="sl-btn add" id="btn-add">+</button>
-          </div>
-        </div>
-
-        <div class="count-card">
-          <div class="cc-lbl">Total combinations</div>
-          <div class="cc-num" id="cc-num">27</div>
-          <div class="cc-formula" id="cc-formula">3 × 3 × 3 = 3³</div>
-          <div class="mult-badge" id="mult-badge">× 3 — tripled!</div>
-        </div>
-
-        <div class="time-hint" id="time-hint"></div>
-
-      </div>
-
-      <!-- RIGHT: VISUALISER -->
-      <div class="viz-card">
-        <div class="viz-header">
-          <span class="vh-title" id="vh-title">All 27 combinations</span>
-          <span class="vh-sub" id="vh-sub">3 colours, 3 slots</span>
-        </div>
-        <div class="viz-body" id="viz-body"></div>
-      </div>
-    </div>
-
-    <div class="insight" id="insight-box"></div>
+  </div>
+  <div class="top-right">
+    <div class="tr-lbl">Total</div>
+    <div class="tr-big" id="tr-big">27</div>
   </div>
 </div>
 
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="lp">
+      <div class="lp-lbl">Each slot can be</div>
+      <div class="cs-opts" id="cs-opts">
+        <div class="cs-opt active" data-n="3">
+          <div class="cs-swatch">
+            <div class="cs-dot" style="background:#e03020"></div>
+            <div class="cs-dot" style="background:#c09010"></div>
+            <div class="cs-dot" style="background:#1a8a4a"></div>
+          </div>
+          <span class="cs-name">3 colours</span>
+          <span class="cs-cnt">n=3</span>
+        </div>
+        <div class="cs-opt" data-n="10">
+          <div class="cs-swatch">
+            <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--steel)">0–9</span>
+          </div>
+          <span class="cs-name">10 digits</span>
+          <span class="cs-cnt">n=10</span>
+        </div>
+        <div class="cs-opt" data-n="26">
+          <div class="cs-swatch">
+            <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--steel)">A–Z</span>
+          </div>
+          <span class="cs-name">26 letters</span>
+          <span class="cs-cnt">n=26</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp">
+      <div class="lp-lbl">Number of slots</div>
+      <div class="slot-ctrl">
+        <button class="sc-btn" id="btn-rem">−</button>
+        <div class="sc-mid" id="sc-mid">3</div>
+        <button class="sc-btn" id="btn-add">+</button>
+      </div>
+    </div>
+
+    <div class="total-box">
+      <div class="tb-lbl">Total combinations</div>
+      <div class="tb-num" id="tb-num">27</div>
+      <div class="tb-formula" id="tb-formula">3 × 3 × 3 = 3³</div>
+      <div class="tb-mult" id="tb-mult">× 3 — tripled!</div>
+    </div>
+
+    <div class="time-box" id="time-box"></div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="r-hdr">
+      <span class="rh-title" id="rh-title">All 27 combinations</span>
+      <span class="rh-sub" id="rh-sub">3 choices × 3 slots</span>
+    </div>
+    <div class="viz-body" id="viz-body"></div>
+    <div class="insight-bar" id="insight-bar"></div>
+  </div>
+
+</div>
+
 <script>
-// ═══════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════
-let N = 3;
-let slots = 3;
-let prevTotal = 9; // track previous total for badge
+let N=3, slots=3, prevTotal=9;
 
-// ═══════════════════════════════════════════
-// COLOUR PALETTE
-// ═══════════════════════════════════════════
-// For n=3: three distinct colours
-const COLOURS = [
-  {bg:'#fdecea',border:'#d94f3d',text:'#8a1a10',label:'R'},
-  {bg:'#fdf3e0',border:'#d48a20',text:'#7a4a00',label:'Y'},
-  {bg:'#e4f5ec',border:'#2a7a4a',text:'#0a3a20',label:'G'},
-];
-
-// For n=10 and n=26: a richer 10-colour palette cycling
-const DIGIT_PALETTE = [
-  {bg:'#e8f4f5',border:'#1d6a72',text:'#0a3038'},
-  {bg:'#fdecea',border:'#d94f3d',text:'#6a1010'},
-  {bg:'#fdf3e0',border:'#d48a20',text:'#5a3000'},
-  {bg:'#e4f5ec',border:'#2a7a4a',text:'#0a3020'},
-  {bg:'#f2eef8',border:'#6a4a90',text:'#3a1860'},
-  {bg:'#e8f0f8',border:'#2a5a8a',text:'#0a2040'},
-  {bg:'#fce8f0',border:'#a83060',text:'#5a1030'},
-  {bg:'#f5f8e8',border:'#607a20',text:'#283000'},
-  {bg:'#f8ece8',border:'#c06030',text:'#502010'},
-  {bg:'#e8f8f5',border:'#207060',text:'#082820'},
-];
-
-function getStyle(idx){
-  if(N === 3) return COLOURS[idx % 3];
-  return DIGIT_PALETTE[idx % DIGIT_PALETTE.length];
-}
-
-function getLabel(idx){
-  if(N === 3) return COLOURS[idx % 3].label;
-  if(N === 10) return String(idx % N);
-  return String.fromCharCode(65 + (idx % N));
-}
-
-// ═══════════════════════════════════════════
-// FORMAT HELPERS
-// ═══════════════════════════════════════════
 function sup(n){return String(n).split('').map(c=>('⁰¹²³⁴⁵⁶⁷⁸⁹'[+c]||c)).join('')}
 function fmtN(n){
-  if(n < 1e4) return n.toLocaleString('en-IN');
-  if(n < 1e7) return n.toLocaleString('en-IN');
-  const e = Math.floor(Math.log10(n));
+  if(n<1e4)return n.toLocaleString('en-IN');
+  if(n<1e7)return n.toLocaleString('en-IN');
+  const e=Math.floor(Math.log10(n));
   return (n/Math.pow(10,e)).toFixed(2).replace(/\.?0+$/,'')+'×10'+sup(e);
 }
 function fmtTime(s){
-  if(s < 1)       return '<1 sec';
-  if(s < 60)      return s.toFixed(0)+' sec';
-  if(s < 3600)    return (s/60).toFixed(1)+' min';
-  if(s < 86400)   return (s/3600).toFixed(1)+' hrs';
-  if(s < 86400*365) return (s/86400).toFixed(0)+' days';
-  const yrs = s/(86400*365);
-  if(yrs < 1e6) return yrs.toFixed(0)+' yrs';
+  if(s<1)return '<1 sec';if(s<60)return s.toFixed(0)+' sec';
+  if(s<3600)return (s/60).toFixed(1)+' min';if(s<86400)return (s/3600).toFixed(1)+' hrs';
+  if(s<86400*365)return (s/86400).toFixed(0)+' days';
+  const yrs=s/(86400*365);
+  if(yrs<1e6)return yrs.toFixed(0)+' yrs';
   return yrs.toExponential(1)+' yrs';
 }
 
-// ═══════════════════════════════════════════
-// RENDER
-// ═══════════════════════════════════════════
-function render(slotChanged){
-  const total = Math.pow(N, slots);
-  const formula = Array(slots).fill(N).join(' × ')+' = '+N+sup(slots)+' = '+fmtN(total);
+const C_CLASSES = ['c0-node','c1-node','c2-node','c3-node','c4-node','c5-node','c6-node','c7-node','c8-node','c9-node'];
+const C_LABELS_3 = ['R','Y','G'];
+const C_COLORS_3 = [{bg:'#ffecea',border:'#e03020',text:'#7a0a08'},{bg:'#fdf8e0',border:'#c09010',text:'#5a3800'},{bg:'#e4f5ec',border:'#1a8a4a',text:'#083a1a'}];
 
-  // Count card
-  document.getElementById('cc-num').textContent = fmtN(total);
-  document.getElementById('cc-formula').textContent = formula;
+function getNodeClass(idx){return C_CLASSES[idx % C_CLASSES.length]}
+function getLabel(idx){
+  if(N===3)return C_LABELS_3[idx%3];
+  if(N===10)return String(idx%N);
+  return String.fromCharCode(65+(idx%N));
+}
+function getStyle(idx){
+  if(N===3)return C_COLORS_3[idx%3];
+  const cls=C_CLASSES[idx%C_CLASSES.length];
+  const tmp=document.createElement('div');tmp.className=cls;document.body.appendChild(tmp);
+  const cs=getComputedStyle(tmp);
+  const bg=cs.background,bc=cs.borderColor,co=cs.color;
+  document.body.removeChild(tmp);
+  return null;
+}
 
-  // Multiply badge
-  const badge = document.getElementById('mult-badge');
-  if(slotChanged === 1 && prevTotal > 0){
-    badge.textContent = '× '+N+' — just multiplied!';
+function mkNode(lbl, cls, size, fsize){
+  const d=document.createElement('div');
+  d.className='node '+cls;
+  d.style.cssText=`width:${size}px;height:${size}px;font-size:${fsize}px`;
+  d.textContent=lbl;
+  return d;
+}
+
+function render(slotDelta){
+  const total=Math.pow(N,slots);
+  document.getElementById('tr-big').textContent=fmtN(total);
+  document.getElementById('tb-num').textContent=fmtN(total);
+  document.getElementById('tb-formula').textContent=Array(slots).fill(N).join(' × ')+(slots>1?' = '+N+sup(slots):'')+' = '+fmtN(total);
+  document.getElementById('sc-mid').textContent=slots;
+  document.getElementById('rh-title').textContent='All '+fmtN(total)+' combinations';
+  document.getElementById('rh-sub').textContent=N+' choice'+(N!==1?'s':'')+' × '+slots+' slot'+(slots!==1?'s':'');
+  document.getElementById('btn-add').disabled=slots>=6;
+  document.getElementById('btn-rem').disabled=slots<=1;
+
+  const badge=document.getElementById('tb-mult');
+  if(slotDelta===1&&prevTotal>0){
+    badge.textContent='× '+N+' — just multiplied!';
+    badge.classList.remove('show');void badge.offsetWidth;
     badge.classList.add('show');
-    setTimeout(()=>badge.classList.remove('show'), 2200);
-  } else {
-    badge.classList.remove('show');
+    setTimeout(()=>badge.classList.remove('show'),2000);
   }
-  prevTotal = total;
+  prevTotal=total;
 
-  // Nav buttons
-  document.getElementById('sl-val').textContent = slots;
-  document.getElementById('btn-add').disabled = slots >= 6;
-  document.getElementById('btn-rem').disabled = slots <= 1;
-
-  // Time hint
-  const rate = 1000;
-  const secs = total / rate;
-  document.getElementById('time-hint').innerHTML =
+  const rate=1000,secs=total/rate;
+  document.getElementById('time-box').innerHTML=
     '<strong>Guessing 1,000/sec:</strong> would take '+fmtTime(secs)+
-    (secs < 2 ? ' — trivial!' : secs < 3600 ? ' — manageable' : ' — practically impossible!');
+    (secs<2?' — trivial!':secs<3600?' — manageable':' — practically impossible!');
 
-  // Viz header
-  document.getElementById('vh-title').textContent = 'All '+fmtN(total)+' combinations';
-  document.getElementById('vh-sub').textContent = N+' choice'+(N!==1?'s':'')+' × '+slots+' slot'+(slots!==1?'s':'');
+  const prev=Math.pow(N,slots-1);
+  document.getElementById('insight-bar').innerHTML=
+    slots===1
+    ? `<strong>1 slot, ${N} choices:</strong> just ${N} possibilities. No multiplication yet.`
+    : `<strong>Adding slot ${slots} multiplied by ${N}:</strong> ${fmtN(prev)} combos each grew ${N} children → ${fmtN(prev)} × ${N} = <strong>${fmtN(total)}</strong>. That's why it's ${N}${sup(slots)} not ${N}×${slots}.`;
 
-  // Visualiser
   renderViz(total);
-
-  // Insight
-  const prev = Math.pow(N, slots-1);
-  document.getElementById('insight-box').innerHTML =
-    slots === 1
-    ? `<strong>1 slot, ${N} choices:</strong> Just ${N} possibilities — one for each choice. No multiplication yet.`
-    : `<strong>Adding slot ${slots} multiplied by ${N}:</strong> The ${fmtN(prev)} combinations from before each grew ${N} children → ${fmtN(prev)} × ${N} = <strong>${fmtN(total)}</strong>. This is why it's called ${N}${sup(slots)} not ${N}×${slots}.`;
 }
 
 function renderViz(total){
-  const body = document.getElementById('viz-body');
-  body.innerHTML = '';
-
-  if(N === 3 && slots <= 3){
-    // Full branching tree — small enough to show all nodes clearly
-    renderTree(body, slots, total);
-  } else if(total <= 81){
-    // Full grid — still manageable to show every cell
-    renderFlatGrid(body, slots, total);
-  } else {
-    // Too many — partial preview + fog
-    renderFog(body, slots, total);
-  }
+  const body=document.getElementById('viz-body');
+  body.innerHTML='';
+  if(N===3&&slots<=4) renderTree(body);
+  else if(total<=100) renderGrid(body,total);
+  else renderFog(body,total);
 }
 
-// ─── TREE RENDERER (n=3, slots 1-4) ───
-function renderTree(body, k, total){
-  // The tree shows k levels, each node branching into N children
-  // For k=1: just N top-level nodes
-  // For k=2: N groups of N
-  // etc.
+function renderTree(body){
+  const k=slots;
+  const ns=k<=2?44:k===3?36:28;
+  const fs=k<=2?15:k===3?12:10;
 
-  // Top: slot 1 nodes + branch lines + slot 2 groups + ...
-  // Rendered as: level header + row of "branch groups"
+  function buildLevel(parent,level,prefix){
+    const isLeaf=level===k-1;
+    for(let i=0;i<N;i++){
+      const cls=getNodeClass(i);
+      const nd=mkNode(getLabel(i),cls,ns,fs);
+      if(isLeaf){
+        const full=[...prefix,i].map(x=>getLabel(x)).join('');
+        nd.textContent=full.length>3?full.slice(0,2)+'…':full;
+        nd.title=full;
+        nd.style.width=(ns*(k>2?1.5:1))+'px';
+        parent.appendChild(nd);
+      } else {
+        const wrap=document.createElement('div');
+        wrap.style.cssText='display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;min-width:'+(ns+6)+'px';
+        wrap.appendChild(nd);
+        const line=document.createElement('div');
+        line.style.cssText='width:1px;height:10px;background:var(--light)';
+        wrap.appendChild(line);
+        const childRow=document.createElement('div');
+        childRow.style.cssText='display:flex;gap:5px;justify-content:center;width:100%';
+        buildLevel(childRow,level+1,[...prefix,i]);
+        wrap.appendChild(childRow);
+        parent.appendChild(wrap);
+      }
+    }
+  }
 
-  const wrap = document.createElement('div');
-  wrap.style.cssText = 'display:flex;flex-direction:column;gap:16px;width:100%';
-
-  // Build from top level down
-  // Each "section" = [level label] [row of nodes at this level]
-  // We'll build it recursively but render flat
-
-  const nodeSize = k <= 2 ? 46 : k === 3 ? 38 : 30;
-  const fontSize = k <= 2 ? 15 : k === 3 ? 13 : 11;
-
-  function renderLevel(parent, levelIdx, prefix){
-    // prefix = array of slot choices leading to this level
-    const isLeaf = levelIdx === k;
-    const isSingleSlot = k === 1;
-
-    if(levelIdx === 0){
-      // Root: render slot 1 row
-      const slotSec = document.createElement('div');
-      slotSec.style.cssText = 'display:flex;flex-direction:column;gap:8px';
-      const slotLbl = document.createElement('div');
-      slotLbl.style.cssText = 'font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3)';
-      slotLbl.textContent = 'Slot 1';
-      slotSec.appendChild(slotLbl);
-
-      const nodeRow = document.createElement('div');
-      nodeRow.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap';
-
-      for(let i=0;i<N;i++){
-        const sty = getStyle(i);
-        if(k === 1){
-          // Leaf
-          const nd = mkNode(getLabel(i), sty, nodeSize, fontSize);
-          nodeRow.appendChild(nd);
-        } else {
-          // Branch group: node + tree below
-          const grp = document.createElement('div');
-          grp.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;min-width:'+(nodeSize+8)+'px';
-          const nd = mkNode(getLabel(i), sty, nodeSize, fontSize);
-          nd.style.marginBottom='4px';
-          grp.appendChild(nd);
-          // connector line
-          const line = document.createElement('div');
-          line.style.cssText = 'width:1.5px;height:14px;background:var(--rule);margin:0 auto';
-          grp.appendChild(line);
-          // recurse
-          renderLevel(grp, 1, [i]);
-          nodeRow.appendChild(grp);
+  for(let level=0;level<k;level++){
+    const grp=document.createElement('div');grp.className='blk-grp';
+    const lbl=document.createElement('div');lbl.className='blk-lbl';lbl.textContent='Slot '+(level+1);
+    grp.appendChild(lbl);
+    if(level===0){
+      const row=document.createElement('div');row.className='blk-row';
+      buildLevel(row,0,[]);
+      grp.appendChild(row);
+      body.appendChild(grp);
+      break;
+    }
+  }
+  // For k=1 done. For k>1 build full tree
+  if(k>1){
+    body.innerHTML='';
+    const wrap=document.createElement('div');
+    wrap.style.cssText='display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto';
+    for(let i=0;i<N;i++){
+      const cls=getNodeClass(i);
+      const grp=document.createElement('div');
+      grp.style.cssText='display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;min-width:'+(ns+8)+'px';
+      const nd=mkNode(getLabel(i),cls,ns,fs);
+      grp.appendChild(nd);
+      const line=document.createElement('div');
+      line.style.cssText='width:1px;height:12px;background:var(--light)';
+      grp.appendChild(line);
+      const sub=document.createElement('div');
+      sub.style.cssText='display:flex;gap:4px;justify-content:center;width:100%';
+      if(k===2){
+        for(let j=0;j<N;j++){
+          const cls2=getNodeClass(j);
+          const full=getLabel(i)+getLabel(j);
+          const nd2=mkNode(full,cls2,ns,fs-2);
+          sub.appendChild(nd2);
         }
+      } else if(k===3){
+        for(let j=0;j<N;j++){
+          const midWrap=document.createElement('div');
+          midWrap.style.cssText='display:flex;flex-direction:column;align-items:center;gap:4px';
+          const cls2=getNodeClass(j);
+          const nd2=mkNode(getLabel(j),cls2,ns-6,fs-2);
+          midWrap.appendChild(nd2);
+          const line2=document.createElement('div');
+          line2.style.cssText='width:1px;height:8px;background:var(--light)';
+          midWrap.appendChild(line2);
+          const leafRow=document.createElement('div');
+          leafRow.style.cssText='display:flex;gap:2px';
+          for(let kk=0;kk<N;kk++){
+            const cls3=getNodeClass(kk);
+            const full=getLabel(i)+getLabel(j)+getLabel(kk);
+            const nd3=mkNode(full,cls3,ns-6,8);
+            leafRow.appendChild(nd3);
+          }
+          midWrap.appendChild(leafRow);
+          sub.appendChild(midWrap);
+        }
+      } else {
+        // k=4 simplified
+        const leafRow=document.createElement('div');
+        leafRow.style.cssText='display:flex;flex-wrap:wrap;gap:2px;justify-content:center;max-width:120px';
+        for(let j=0;j<Math.min(Math.pow(N,k-1),12);j++){
+          const combo=[];let v=i*Math.pow(N,k-1)+j;
+          for(let d=k-2;d>=0;d--){combo[d]=v%N;v=Math.floor(v/N);}
+          const cls2=getNodeClass(combo[combo.length-1]);
+          const lbl2=[getLabel(i),...combo.map(x=>getLabel(x))].join('');
+          const nd2=mkNode(lbl2.slice(-2)+'…',cls2,ns-8,8);
+          leafRow.appendChild(nd2);
+        }
+        const ellEl=document.createElement('div');
+        ellEl.style.cssText='font-size:10px;color:var(--mid);font-family:var(--mono);text-align:center';
+        ellEl.textContent='…';leafRow.appendChild(ellEl);
+        sub.appendChild(leafRow);
       }
-      slotSec.appendChild(nodeRow);
-      parent.appendChild(slotSec);
-
-    } else if(levelIdx < k - 1){
-      // Intermediate: show N children side by side
-      const row = document.createElement('div');
-      row.style.cssText = 'display:flex;gap:6px;justify-content:center;width:100%';
-      for(let i=0;i<N;i++){
-        const sty = getStyle(i);
-        const grp = document.createElement('div');
-        grp.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:5px;flex:1';
-        const nd = mkNode(getLabel(i), sty, nodeSize, fontSize);
-        nd.style.marginBottom='2px';
-        grp.appendChild(nd);
-        const line = document.createElement('div');
-        line.style.cssText = 'width:1.5px;height:10px;background:var(--rule);margin:0 auto';
-        grp.appendChild(line);
-        renderLevel(grp, levelIdx+1, [...prefix,i]);
-        row.appendChild(grp);
-      }
-      // level label
-      const lbl = document.createElement('div');
-      lbl.style.cssText = 'font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3);text-align:center;margin-bottom:4px';
-      lbl.textContent = 'Slot '+(levelIdx+1);
-      const sec = document.createElement('div');
-      sec.appendChild(lbl);sec.appendChild(row);
-      parent.appendChild(sec);
-
-    } else {
-      // Leaf level
-      const lbl = document.createElement('div');
-      lbl.style.cssText = 'font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3);text-align:center;margin-bottom:4px';
-      lbl.textContent = 'Slot '+(levelIdx+1);
-      parent.appendChild(lbl);
-      const row = document.createElement('div');
-      row.style.cssText = 'display:flex;gap:4px;justify-content:center;flex-wrap:wrap';
-      for(let i=0;i<N;i++){
-        const fullPrefix=[...prefix,i];
-        const sty = getStyle(fullPrefix[fullPrefix.length-1]);
-        const label = fullPrefix.map(x=>getLabel(x)).join('');
-        const nd = mkNode(label, sty, nodeSize*1.1, Math.min(fontSize,10));
-        nd.title = label;
-        row.appendChild(nd);
-      }
-      parent.appendChild(row);
+      grp.appendChild(sub);
+      wrap.appendChild(grp);
     }
+    body.appendChild(wrap);
+
+    const banner=document.createElement('div');
+    banner.style.cssText='margin-top:14px;padding:8px 12px;background:var(--off);border:1.5px solid var(--light);font-family:var(--mono);font-size:12px;color:var(--iron);text-align:center';
+    banner.textContent=Array(k).fill(N).join(' × ')+' = '+N+sup(k)+' = '+Math.pow(N,k)+' combinations';
+    body.appendChild(banner);
   }
-
-  renderLevel(wrap, 0, []);
-  body.appendChild(wrap);
-
-  // Count banner
-  const banner = document.createElement('div');
-  banner.style.cssText = 'margin-top:16px;padding:10px 14px;background:var(--paper2);border-radius:9px;font-size:13px;color:var(--ink2);text-align:center;font-family:var(--mono);font-weight:600';
-  banner.textContent = N+' × '.repeat(k-1)+N+' = '+N+sup(k)+' = '+total+' combinations';
-  body.appendChild(banner);
 }
 
-// ─── FLAT GRID (for n>3, small total) ───
-function renderFlatGrid(body, k, total){
-  // Group by first slot
-  const perGroup = Math.pow(N, k-1);
-  const cellSz = total <= 30 ? 40 : total <= 60 ? 34 : 28;
-  const fSz = cellSz >= 36 ? 13 : cellSz >= 30 ? 11 : 9;
-
-  const wrap = document.createElement('div');
-  wrap.style.cssText = 'display:flex;flex-direction:column;gap:14px;width:100%';
-
+function renderGrid(body,total){
+  const perGroup=Math.pow(N,slots-1);
+  const cellSz=total<=30?38:total<=60?32:26;
+  const fSz=cellSz>=34?12:cellSz>=28?10:9;
   for(let g=0;g<N;g++){
-    const sty = getStyle(g);
-    const grpEl = document.createElement('div');
-    grpEl.style.cssText = 'display:flex;flex-direction:column;gap:6px';
-
-    const lbl = document.createElement('div');
-    lbl.style.cssText = 'display:flex;align-items:center;gap:8px';
-    const pill = document.createElement('span');
-    pill.style.cssText = `font-family:var(--mono);font-size:11px;font-weight:700;color:${sty.text};background:${sty.bg};border:1.5px solid ${sty.border};padding:2px 9px;border-radius:6px`;
-    pill.textContent = 'Slot 1 = '+getLabel(g);
-    const line = document.createElement('div');
-    line.style.cssText = 'flex:1;height:1px;background:var(--rule)';
-    const cnt = document.createElement('span');
-    cnt.style.cssText = 'font-size:10px;color:var(--ink3);font-family:var(--mono)';
-    cnt.textContent = perGroup+' combos';
-    lbl.appendChild(pill);lbl.appendChild(line);lbl.appendChild(cnt);
-    grpEl.appendChild(lbl);
-
-    const cellWrap = document.createElement('div');
-    cellWrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px';
-
+    const cls=getNodeClass(g);
+    const grp=document.createElement('div');grp.className='blk-grp';
+    const lbl=document.createElement('div');lbl.className='blk-lbl';
+    const pill=document.createElement('span');
+    pill.className='node '+cls;
+    pill.style.cssText='width:auto;padding:2px 8px;font-size:11px;height:24px';
+    pill.textContent='Slot 1 = '+getLabel(g);
+    lbl.appendChild(pill);
+    grp.appendChild(lbl);
+    const row=document.createElement('div');row.className='blk-row';
     for(let i=0;i<perGroup;i++){
-      const globalIdx = g*perGroup+i;
-      const combo=[];let v=globalIdx;
-      for(let kk=k-1;kk>=0;kk--){combo[kk]=v%N;v=Math.floor(v/N);}
-      const lastSty = getStyle(combo[combo.length-1]);
-      const cell = document.createElement('div');
-      cell.style.cssText = `width:${cellSz}px;height:${cellSz}px;border-radius:6px;border:1.5px solid ${lastSty.border};background:${lastSty.bg};color:${lastSty.text};font-family:var(--mono);font-size:${fSz}px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:default`;
-      const cs2 = combo.map(x=>getLabel(x)).join('');
-      cell.textContent = cs2.length > 3 ? cs2.slice(0,2)+'…' : cs2;
-      cell.title = cs2;
-      cellWrap.appendChild(cell);
+      const idx=g*perGroup+i;
+      const combo=[];let v=idx;
+      for(let kk=slots-1;kk>=0;kk--){combo[kk]=v%N;v=Math.floor(v/N);}
+      const lastCls=getNodeClass(combo[combo.length-1]);
+      const lbl2=combo.map(x=>getLabel(x)).join('');
+      const nd=mkNode(lbl2.length>3?lbl2.slice(0,2)+'…':lbl2,lastCls,cellSz,fSz);
+      nd.title=lbl2;row.appendChild(nd);
     }
-    grpEl.appendChild(cellWrap);
-    wrap.appendChild(grpEl);
+    grp.appendChild(row);body.appendChild(grp);
   }
-  body.appendChild(wrap);
 }
 
-// ─── FOG (large numbers) ───
-function renderFog(body, k, total){
-  const perGroup = Math.pow(N, k-1);
-  // Show 2 partial groups
-  const cellSz = 30;const fSz = 10;
-
-  const wrap = document.createElement('div');
-  wrap.style.cssText = 'display:flex;flex-direction:column;gap:12px;width:100%';
-
-  const showGroups = Math.min(2, N);
-  for(let g=0;g<showGroups;g++){
-    const sty = getStyle(g);
-    const grpEl = document.createElement('div');
-    grpEl.style.cssText = 'display:flex;flex-direction:column;gap:6px';
-
-    const lbl = document.createElement('div');
-    lbl.style.cssText = 'display:flex;align-items:center;gap:8px';
-    const pill = document.createElement('span');
-    pill.style.cssText = `font-family:var(--mono);font-size:11px;font-weight:700;color:${sty.text};background:${sty.bg};border:1.5px solid ${sty.border};padding:2px 9px;border-radius:6px`;
-    pill.textContent = 'Slot 1 = '+getLabel(g);
-    const line2 = document.createElement('div');
-    line2.style.cssText = 'flex:1;height:1px;background:var(--rule)';
-    const cnt = document.createElement('span');
-    cnt.style.cssText = 'font-size:10px;color:var(--ink3);font-family:var(--mono)';
-    cnt.textContent = fmtN(perGroup)+' here alone…';
-    lbl.appendChild(pill);lbl.appendChild(line2);lbl.appendChild(cnt);
-    grpEl.appendChild(lbl);
-
-    const cellWrap = document.createElement('div');
-    cellWrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:3px;align-items:center';
-    const show = Math.min(Number.isFinite(perGroup)?perGroup:10, 10);
+function renderFog(body,total){
+  const perGroup=Math.pow(N,slots-1);
+  const showG=Math.min(2,N);
+  for(let g=0;g<showG;g++){
+    const cls=getNodeClass(g);
+    const grp=document.createElement('div');grp.className='blk-grp';
+    const lbl=document.createElement('div');lbl.className='blk-lbl';
+    const pill=document.createElement('span');
+    pill.className='node '+cls;pill.style.cssText='width:auto;padding:2px 8px;font-size:11px;height:24px';
+    pill.textContent='Slot 1 = '+getLabel(g);lbl.appendChild(pill);grp.appendChild(lbl);
+    const row=document.createElement('div');row.className='blk-row';
+    const show=Math.min(Number.isFinite(perGroup)?perGroup:10,10);
     for(let i=0;i<show;i++){
-      const globalIdx = g*perGroup+i;
-      const combo=[];let v=globalIdx;
-      for(let kk=k-1;kk>=0;kk--){combo[kk]=v%N;v=Math.floor(v/N);}
-      const lastSty = getStyle(combo[combo.length-1]);
-      const cell = document.createElement('div');
-      // For long combos show only last 2 chars to keep cells readable
-      const comboStr = combo.map(x=>getLabel(x)).join('');
-      const displayStr = comboStr.length > 3 ? '…'+comboStr.slice(-2) : comboStr;
-      const dynFSz = displayStr.length <= 2 ? 12 : displayStr.length <= 3 ? 10 : 9;
-      cell.style.cssText = `width:34px;height:34px;border-radius:5px;border:1.5px solid ${lastSty.border};background:${lastSty.bg};color:${lastSty.text};font-family:var(--mono);font-size:${dynFSz}px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0`;
-      cell.textContent = displayStr;
-      cell.title = comboStr;
-      cellWrap.appendChild(cell);
+      const idx=g*perGroup+i;const combo=[];let v=idx;
+      for(let kk=slots-1;kk>=0;kk--){combo[kk]=v%N;v=Math.floor(v/N);}
+      const lastCls=getNodeClass(combo[combo.length-1]);
+      const lbl2=combo.map(x=>getLabel(x)).join('');
+      const disp=lbl2.length>3?'…'+lbl2.slice(-2):lbl2;
+      const nd=mkNode(disp,lastCls,34,10);nd.title=lbl2;row.appendChild(nd);
     }
-    // Ellipsis
-    if(perGroup > show){
-      const ell = document.createElement('span');
-      ell.style.cssText = 'font-size:20px;color:var(--rule);letter-spacing:4px;padding:0 6px';
-      ell.textContent = '…';
-      cellWrap.appendChild(ell);
-    }
-    grpEl.appendChild(cellWrap);
-    wrap.appendChild(grpEl);
+    if(perGroup>show){const e=document.createElement('span');e.style.cssText='font-size:20px;color:var(--mid);letter-spacing:4px;align-self:center';e.textContent='…';row.appendChild(e);}
+    grp.appendChild(row);body.appendChild(grp);
   }
-
-  if(N > 2){
-    const dots = document.createElement('div');
-    dots.style.cssText = 'text-align:center;font-size:24px;color:var(--rule);letter-spacing:10px;padding:4px';
-    dots.textContent = '· · ·';
-    wrap.appendChild(dots);
-  }
-
-  // Fog box
-  const fog = document.createElement('div');
-  fog.className = 'fog-box';
-  fog.innerHTML = `
-    <div class="fog-formula">${Array(k).fill(N).join(' × ')} =</div>
-    <div class="fog-num">${fmtN(total)}</div>
-    <div class="fog-desc">${N} groups, each with ${fmtN(perGroup)} combinations — impossible to show them all!</div>
-  `;
-  wrap.appendChild(fog);
-  body.appendChild(wrap);
+  if(N>2){const d=document.createElement('div');d.style.cssText='text-align:center;font-size:22px;color:var(--light);letter-spacing:10px;padding:6px';d.textContent='· · ·';body.appendChild(d);}
+  const fog=document.createElement('div');fog.className='fog-wrap';
+  fog.innerHTML=`<div class="fog-formula">${Array(slots).fill(N).join(' × ')} =</div><div class="fog-big">${fmtN(total)}</div><div class="fog-desc">${N} groups, each with ${fmtN(perGroup)} combinations</div>`;
+  body.appendChild(fog);
 }
 
-// ─── HELPER: make a node element ───
-function mkNode(label, sty, size, fsize){
-  const nd = document.createElement('div');
-  nd.className = 'node';
-  nd.style.cssText = `width:${size}px;height:${size}px;font-size:${fsize}px;background:${sty.bg};border-color:${sty.border};color:${sty.text}`;
-  nd.textContent = label;
-  nd.title = label;
-  return nd;
-}
-
-// ═══════════════════════════════════════════
-// EVENTS
-// ═══════════════════════════════════════════
-document.querySelectorAll('.cs-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.cs-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    N=+btn.dataset.n;
+document.querySelectorAll('.cs-opt').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    document.querySelectorAll('.cs-opt').forEach(o=>o.classList.remove('active'));
+    opt.classList.add('active');
+    N=+opt.dataset.n;
     slots=Math.min(slots,N===3?5:N===10?4:3);
-    prevTotal=Math.pow(N,slots-1);
-    render(0);
+    prevTotal=Math.pow(N,slots-1);render(0);
   });
 });
+document.getElementById('btn-add').addEventListener('click',()=>{if(slots<6){slots++;render(1);}});
+document.getElementById('btn-rem').addEventListener('click',()=>{if(slots>1){slots--;prevTotal=Math.pow(N,slots+1);render(-1);}});
 
-document.getElementById('btn-add').addEventListener('click',()=>{
-  if(slots<6){slots++;render(1);}
-});
-document.getElementById('btn-rem').addEventListener('click',()=>{
-  if(slots>1){slots--;prevTotal=Math.pow(N,slots+1);render(-1);}
-});
-
-// ═══════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════
-prevTotal = Math.pow(N, slots-1);
+prevTotal=Math.pow(N,slots-1);
 render(0);
 </script>
 </body>
