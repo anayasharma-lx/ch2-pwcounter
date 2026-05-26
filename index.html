@@ -9,598 +9,180 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --white:#ffffff;
-  --off:#f5f5f2;
-  --light:#e8e8e4;
-  --mid:#c0c0bc;
-  --steel:#888884;
-  --iron:#444440;
-  --coal:#1a1a18;
-  --black:#08080a;
-  --red:#e03020;
-  --red-bg:#ffecea;
-  --green:#1a8a4a;
-  --green-bg:#e4f5ec;
-  --yellow:#c09010;
-  --yellow-bg:#fdf8e0;
-  --blue:#1850c0;
-  --blue-bg:#e4ecff;
-  --sans:'Syne',system-ui,sans-serif;
-  --mono:'DM Mono',ui-monospace,monospace;
+  --white:#ffffff;--off:#f5f5f2;--light:#e8e8e4;--mid:#c0c0bc;
+  --steel:#888884;--iron:#444440;--coal:#1a1a18;--black:#08080a;
+  --red:#e03020;--red-bg:#ffecea;--green:#1a8a4a;--green-bg:#e4f5ec;
+  --yellow:#c09010;--yellow-bg:#fdf8e0;--blue:#1850c0;--blue-bg:#e4ecff;
+  --sans:'Syne',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
 }
 html,body{width:100%;height:100%;overflow:hidden}
-body{
-  font-family:var(--sans);
-  background:var(--white);
-  color:var(--coal);
-  -webkit-font-smoothing:antialiased;
-  display:flex;flex-direction:column;
-  position:fixed;inset:0;
-}
-
-/* ── HEADER ── */
-.top{
-  display:flex;align-items:stretch;
-  border-bottom:3px solid var(--coal);
-  flex-shrink:0;
-  background:var(--coal);
-  color:var(--white);
-}
-.top-left{
-  padding:10px 18px;
-  border-right:2px solid var(--iron);
-  display:flex;flex-direction:column;justify-content:center;
-  min-width:180px;
-}
-.top-ch{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);margin-bottom:2px;font-family:var(--mono);}
-.top-title{font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--white);}
+body{font-family:var(--sans);background:var(--white);color:var(--coal);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;position:fixed;inset:0}
+.top{display:flex;align-items:stretch;border-bottom:3px solid var(--coal);flex-shrink:0;background:var(--coal);color:var(--white)}
+.top-left{padding:10px 18px;border-right:2px solid var(--iron);display:flex;flex-direction:column;justify-content:center;min-width:180px}
+.top-ch{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);margin-bottom:2px;font-family:var(--mono)}
+.top-title{font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--white)}
 .top-center{flex:1;padding:10px 18px;display:flex;align-items:center}
-.top-concept{
-  font-size:12px;color:var(--mid);font-family:var(--mono);
-  border-left:2px solid var(--iron);padding-left:12px;line-height:1.6;
-}
+.top-concept{font-size:12px;color:var(--mid);font-family:var(--mono);border-left:2px solid var(--iron);padding-left:12px;line-height:1.6}
 .top-concept strong{color:var(--white)}
-.top-right{
-  border-left:2px solid var(--iron);padding:10px 16px;
-  display:flex;flex-direction:column;justify-content:center;align-items:flex-end;
-  gap:3px;min-width:140px;
-}
-.tr-lbl{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);font-family:var(--mono);}
-.tr-big{font-size:22px;font-weight:800;color:var(--white);font-family:var(--mono);}
-
-/* ── MAIN ── */
-.main{
-  flex:1;display:grid;
-  grid-template-columns:280px 1fr;
-  overflow:hidden;min-height:0;
-}
-
-/* ── LEFT ── */
-.left{
-  border-right:2px solid var(--coal);
-  display:flex;flex-direction:column;
-  background:var(--off);
-  overflow:hidden;
-}
-.lp{
-  padding:14px 16px;
-  border-bottom:1.5px solid var(--light);
-  flex-shrink:0;
-}
-.lp-lbl{
-  font-size:8px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--steel);font-family:var(--mono);margin-bottom:10px;
-}
-
-/* charset options */
+.top-right{border-left:2px solid var(--iron);padding:10px 16px;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:3px;min-width:140px}
+.tr-lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);font-family:var(--mono)}
+.tr-big{font-size:22px;font-weight:800;color:var(--white);font-family:var(--mono)}
+.main{flex:1;display:grid;grid-template-columns:280px 1fr;overflow:hidden;min-height:0}
+.left{border-right:2px solid var(--coal);display:flex;flex-direction:column;background:var(--off);overflow:hidden}
+.lp{padding:14px 16px;border-bottom:1.5px solid var(--light);flex-shrink:0}
+.lp-lbl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--steel);font-family:var(--mono);margin-bottom:10px}
 .cs-opts{display:flex;flex-direction:column;gap:5px}
-.cs-opt{
-  display:flex;align-items:center;gap:10px;
-  padding:8px 10px;
-  border:1.5px solid var(--light);
-  border-radius:0;
-  cursor:pointer;transition:all .12s;background:var(--white);
-}
-.cs-opt:hover{border-color:var(--steel)}
-.cs-opt.active{
-  border-color:var(--coal);
-  background:var(--coal);color:var(--white);
-}
-.cs-opt.active .cs-name{color:var(--white)}
-.cs-opt.active .cs-cnt{color:var(--mid)}
-.cs-swatch{display:flex;gap:3px}
-.cs-dot{width:10px;height:10px}
-.cs-name{font-size:12px;font-weight:700;flex:1;font-family:var(--mono)}
-.cs-cnt{font-size:11px;color:var(--steel);font-family:var(--mono)}
-
-/* slot counter */
-.slot-ctrl{
-  display:flex;align-items:stretch;
-  border:2px solid var(--coal);
-  background:var(--white);
-}
-.sc-btn{
-  width:44px;
-  border:none;background:var(--coal);
-  font-size:22px;font-weight:700;color:var(--white);
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:background .12s;
-  flex-shrink:0;
-}
-.sc-btn:hover:not(:disabled){background:var(--iron)}
-.sc-btn:disabled{opacity:.25;cursor:not-allowed}
+.cs-opt{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1.5px solid var(--light);cursor:pointer;transition:all .12s;background:var(--white)}
+.cs-opt:hover{border-color:var(--steel)}.cs-opt.active{border-color:var(--coal);background:var(--coal);color:var(--white)}
+.cs-opt.active .cs-name{color:var(--white)}.cs-opt.active .cs-cnt{color:var(--mid)}
+.cs-swatch{display:flex;gap:3px}.cs-dot{width:10px;height:10px}
+.cs-name{font-size:12px;font-weight:700;flex:1;font-family:var(--mono)}.cs-cnt{font-size:11px;color:var(--steel);font-family:var(--mono)}
+.slot-ctrl{display:flex;align-items:stretch;border:2px solid var(--coal);background:var(--white)}
+.sc-btn{width:44px;border:none;background:var(--coal);font-size:22px;font-weight:700;color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .12s;flex-shrink:0}
+.sc-btn:hover:not(:disabled){background:var(--iron)}.sc-btn:disabled{opacity:.25;cursor:not-allowed}
 .sc-mid{flex:1;text-align:center;padding:10px;font-family:var(--mono);font-size:26px;font-weight:700;color:var(--coal)}
-
-/* total display */
-.total-box{
-  background:var(--coal);
-  padding:14px 16px;
-  text-align:center;
-}
-.tb-lbl{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--steel);font-family:var(--mono);margin-bottom:6px}
+.total-box{background:var(--coal);padding:14px 16px;text-align:center}
+.tb-lbl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--steel);font-family:var(--mono);margin-bottom:6px}
 .tb-num{font-family:var(--mono);font-size:36px;font-weight:700;color:var(--white);line-height:1}
 .tb-formula{font-family:var(--mono);font-size:11px;color:var(--steel);margin-top:6px}
-.tb-mult{
-  display:none;
-  margin-top:8px;
-  padding:5px 12px;
-  background:var(--yellow-bg);
-  border:1.5px solid var(--yellow);
-  font-family:var(--mono);font-size:12px;font-weight:700;color:var(--yellow);
-  animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both;
-  text-align:center;
-}
+.tb-mult{display:none;margin-top:8px;padding:5px 12px;background:var(--yellow-bg);border:1.5px solid var(--yellow);font-family:var(--mono);font-size:12px;font-weight:700;color:var(--yellow);animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both;text-align:center}
 .tb-mult.show{display:block}
 @keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
-
-/* time hint */
-.time-box{
-  padding:10px 12px;
-  font-family:var(--mono);font-size:11px;color:var(--steel);line-height:1.55;
-  border-top:1.5px solid var(--light);flex:1;
-}
+.time-box{padding:10px 12px;font-family:var(--mono);font-size:11px;color:var(--steel);line-height:1.55;border-top:1.5px solid var(--light);flex:1}
 .time-box strong{color:var(--coal)}
-
-/* ── RIGHT ── */
-.right{
-  background:var(--white);
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
-.r-hdr{
-  padding:12px 18px;
-  border-bottom:1.5px solid var(--light);
-  display:flex;align-items:center;gap:10px;
-  flex-shrink:0;
-}
-.rh-title{font-size:12px;font-weight:700;color:var(--coal);flex:1}
-.rh-sub{font-size:11px;color:var(--steel);font-family:var(--mono)}
-
-.viz-body{
-  flex:1;padding:16px 18px;
-  overflow-y:auto;overflow-x:hidden;
-  scrollbar-width:thin;scrollbar-color:var(--light) transparent;
-}
-.viz-body::-webkit-scrollbar{width:4px}
-.viz-body::-webkit-scrollbar-thumb{background:var(--light)}
-
-/* tree node */
-.node{
-  display:inline-flex;align-items:center;justify-content:center;
-  border:2px solid;
-  font-family:var(--mono);font-weight:700;
-  transition:transform .15s;cursor:default;flex-shrink:0;
-}
+.right{background:var(--white);display:flex;flex-direction:column;overflow:hidden}
+.r-hdr{padding:12px 18px;border-bottom:1.5px solid var(--light);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.rh-title{font-size:12px;font-weight:700;color:var(--coal);flex:1}.rh-sub{font-size:11px;color:var(--steel);font-family:var(--mono)}
+.viz-body{flex:1;padding:16px 18px;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--light) transparent}
+.viz-body::-webkit-scrollbar{width:4px}.viz-body::-webkit-scrollbar-thumb{background:var(--light)}
+.node{display:inline-flex;align-items:center;justify-content:center;border:2px solid;font-family:var(--mono);font-weight:700;transition:transform .15s;cursor:default;flex-shrink:0}
 .node:hover{transform:scale(1.1);z-index:2;position:relative}
-
-/* block group */
 .blk-grp{margin-bottom:18px}
-.blk-lbl{
-  font-size:9px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--steel);font-family:var(--mono);
-  margin-bottom:8px;
-  display:flex;align-items:center;gap:8px;
-}
+.blk-lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);font-family:var(--mono);margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .blk-lbl::after{content:'';flex:1;height:1px;background:var(--light)}
 .blk-row{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
-
-/* fog */
-.fog-wrap{
-  display:flex;flex-direction:column;align-items:center;
-  padding:24px;
-  background:var(--off);
-  border:2px dashed var(--light);
-  text-align:center;gap:10px;
-}
+.fog-wrap{display:flex;flex-direction:column;align-items:center;padding:24px;background:var(--off);border:2px dashed var(--light);text-align:center;gap:10px}
 .fog-big{font-family:var(--mono);font-size:48px;font-weight:700;color:var(--coal)}
 .fog-formula{font-family:var(--mono);font-size:13px;color:var(--steel)}
 .fog-desc{font-size:12px;color:var(--steel);max-width:280px;line-height:1.6;font-family:var(--mono)}
-
-/* insight */
-.insight-bar{
-  border-top:1.5px solid var(--light);
-  padding:11px 18px;
-  font-size:11px;color:var(--iron);
-  font-family:var(--mono);line-height:1.6;
-  background:var(--off);
-  flex-shrink:0;
-}
+.insight-bar{border-top:1.5px solid var(--light);padding:11px 18px;font-size:11px;color:var(--iron);font-family:var(--mono);line-height:1.6;background:var(--off);flex-shrink:0}
 .insight-bar strong{color:var(--coal)}
+.c0-node{background:#ffecea;border-color:#e03020;color:#7a0a08}.c1-node{background:#fdf8e0;border-color:#c09010;color:#5a3800}
+.c2-node{background:#e4f5ec;border-color:#1a8a4a;color:#083a1a}.c3-node{background:#e4ecff;border-color:#1850c0;color:#0a1c58}
+.c4-node{background:#f5eaff;border-color:#7030b0;color:#320848}.c5-node{background:#fff0e4;border-color:#c05010;color:#4a1a08}
+.c6-node{background:#e4f8ff;border-color:#0870a0;color:#032838}.c7-node{background:#ffeef5;border-color:#b03060;color:#480820}
+.c8-node{background:#f0ffe4;border-color:#507810;color:#1a2804}.c9-node{background:#faf0e4;border-color:#a06018;color:#3a2008}
 
-/* COLORS for 3-color mode */
-.c0-node{background:#ffecea;border-color:#e03020;color:#7a0a08}
-.c1-node{background:#fdf8e0;border-color:#c09010;color:#5a3800}
-.c2-node{background:#e4f5ec;border-color:#1a8a4a;color:#083a1a}
-.c3-node{background:#e4ecff;border-color:#1850c0;color:#0a1c58}
-.c4-node{background:#f5eaff;border-color:#7030b0;color:#320848}
-.c5-node{background:#fff0e4;border-color:#c05010;color:#4a1a08}
-.c6-node{background:#e4f8ff;border-color:#0870a0;color:#032838}
-.c7-node{background:#ffeef5;border-color:#b03060;color:#480820}
-.c8-node{background:#f0ffe4;border-color:#507810;color:#1a2804}
-.c9-node{background:#faf0e4;border-color:#a06018;color:#3a2008}
-</style>
+/* ══ MOBILE ══ */
+@media(max-width:768px){
+  html,body{overflow:auto;height:auto}
+  body{position:static;display:flex;flex-direction:column;min-height:100dvh}
+  .top{height:auto;flex-wrap:wrap}
+  .top-left{padding:10px 14px;min-width:0;border-right:none}
+  .top-title{font-size:17px}
+  .top-center{display:none}
+  .top-right{border-left:none;border-top:1px solid var(--iron);padding:8px 14px;flex-direction:row;align-items:center;gap:8px}
+  .tr-big{font-size:18px}
+  .main{grid-template-columns:1fr}
+  .left{border-right:none;border-bottom:2px solid var(--coal);overflow:visible}
+  .lp{padding:10px 14px}
+  .cs-opts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+  .cs-name{font-size:11px}
+  .cs-cnt{font-size:10px}
+  .sc-mid{font-size:22px;padding:8px}
+  .sc-btn{width:40px}
+  .total-box{padding:12px 14px}
+  .tb-num{font-size:28px}
+  .tb-formula{font-size:11px}
+  .time-box{font-size:11px}
+  .right{overflow:visible}
+  .r-hdr{padding:10px 14px}
+  .viz-body{overflow:visible;max-height:none;padding:12px 14px}
+  .insight-bar{font-size:11px;padding:10px 14px}
+  .fog-big{font-size:36px}
+}
+@media(max-width:480px){
+  .top-title{font-size:15px}
+  .cs-opts{grid-template-columns:1fr 1fr}
+  .tb-num{font-size:22px}
+}</style>
 </head>
 <body>
-
-<!-- HEADER -->
 <div class="top">
-  <div class="top-left">
-    <div class="top-ch">Ch·02 · Power Play</div>
-    <div class="top-title">Password Counter</div>
-  </div>
-  <div class="top-center">
-    <div class="top-concept">
-      <strong>Key insight:</strong> each slot you add doesn't add possibilities — it <strong>multiplies</strong> them. 3³ = 27, not 3×3=9.
-    </div>
-  </div>
-  <div class="top-right">
-    <div class="tr-lbl">Total</div>
-    <div class="tr-big" id="tr-big">27</div>
-  </div>
+  <div class="top-left"><div class="top-ch">Ch·02 · Power Play</div><div class="top-title">Password Counter</div></div>
+  <div class="top-center"><div class="top-concept"><strong>Key insight:</strong> each slot you add doesn't add possibilities — it <strong>multiplies</strong> them. 3³ = 27, not 3×3=9.</div></div>
+  <div class="top-right"><div class="tr-lbl">Total</div><div class="tr-big" id="tr-big">27</div></div>
 </div>
-
-<!-- MAIN -->
 <div class="main">
-
-  <!-- LEFT -->
   <div class="left">
-    <div class="lp">
-      <div class="lp-lbl">Each slot can be</div>
-      <div class="cs-opts" id="cs-opts">
-        <div class="cs-opt active" data-n="3">
-          <div class="cs-swatch">
-            <div class="cs-dot" style="background:#e03020"></div>
-            <div class="cs-dot" style="background:#c09010"></div>
-            <div class="cs-dot" style="background:#1a8a4a"></div>
-          </div>
-          <span class="cs-name">3 colours</span>
-          <span class="cs-cnt">n=3</span>
-        </div>
-        <div class="cs-opt" data-n="10">
-          <div class="cs-swatch">
-            <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--steel)">0–9</span>
-          </div>
-          <span class="cs-name">10 digits</span>
-          <span class="cs-cnt">n=10</span>
-        </div>
-        <div class="cs-opt" data-n="26">
-          <div class="cs-swatch">
-            <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--steel)">A–Z</span>
-          </div>
-          <span class="cs-name">26 letters</span>
-          <span class="cs-cnt">n=26</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="lp">
-      <div class="lp-lbl">Number of slots</div>
-      <div class="slot-ctrl">
-        <button class="sc-btn" id="btn-rem">−</button>
-        <div class="sc-mid" id="sc-mid">3</div>
-        <button class="sc-btn" id="btn-add">+</button>
-      </div>
-    </div>
-
-    <div class="total-box">
-      <div class="tb-lbl">Total combinations</div>
-      <div class="tb-num" id="tb-num">27</div>
-      <div class="tb-formula" id="tb-formula">3 × 3 × 3 = 3³</div>
-      <div class="tb-mult" id="tb-mult">× 3 — tripled!</div>
-    </div>
-
+    <div class="lp"><div class="lp-lbl">Each slot can be</div><div class="cs-opts" id="cs-opts">
+      <div class="cs-opt active" data-n="3"><div class="cs-swatch"><div class="cs-dot" style="background:#e03020"></div><div class="cs-dot" style="background:#c09010"></div><div class="cs-dot" style="background:#1a8a4a"></div></div><span class="cs-name">3 colours</span><span class="cs-cnt">n=3</span></div>
+      <div class="cs-opt" data-n="10"><div class="cs-swatch"><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--steel)">0-9</span></div><span class="cs-name">10 digits</span><span class="cs-cnt">n=10</span></div>
+      <div class="cs-opt" data-n="26"><div class="cs-swatch"><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--steel)">A-Z</span></div><span class="cs-name">26 letters</span><span class="cs-cnt">n=26</span></div>
+    </div></div>
+    <div class="lp"><div class="lp-lbl">Number of slots</div><div class="slot-ctrl"><button class="sc-btn" id="btn-rem">-</button><div class="sc-mid" id="sc-mid">3</div><button class="sc-btn" id="btn-add">+</button></div></div>
+    <div class="total-box"><div class="tb-lbl">Total combinations</div><div class="tb-num" id="tb-num">27</div><div class="tb-formula" id="tb-formula">3 x 3 x 3 = 3^3</div><div class="tb-mult" id="tb-mult">x 3 - just multiplied!</div></div>
     <div class="time-box" id="time-box"></div>
   </div>
-
-  <!-- RIGHT -->
   <div class="right">
-    <div class="r-hdr">
-      <span class="rh-title" id="rh-title">All 27 combinations</span>
-      <span class="rh-sub" id="rh-sub">3 choices × 3 slots</span>
-    </div>
+    <div class="r-hdr"><span class="rh-title" id="rh-title">All 27 combinations</span><span class="rh-sub" id="rh-sub">3 choices x 3 slots</span></div>
     <div class="viz-body" id="viz-body"></div>
     <div class="insight-bar" id="insight-bar"></div>
   </div>
-
 </div>
-
 <script>
-let N=3, slots=3, prevTotal=9;
-
-function sup(n){return String(n).split('').map(c=>('⁰¹²³⁴⁵⁶⁷⁸⁹'[+c]||c)).join('')}
-function fmtN(n){
-  if(n<1e4)return n.toLocaleString('en-IN');
-  if(n<1e7)return n.toLocaleString('en-IN');
-  const e=Math.floor(Math.log10(n));
-  return (n/Math.pow(10,e)).toFixed(2).replace(/\.?0+$/,'')+'×10'+sup(e);
-}
-function fmtTime(s){
-  if(s<1)return '<1 sec';if(s<60)return s.toFixed(0)+' sec';
-  if(s<3600)return (s/60).toFixed(1)+' min';if(s<86400)return (s/3600).toFixed(1)+' hrs';
-  if(s<86400*365)return (s/86400).toFixed(0)+' days';
-  const yrs=s/(86400*365);
-  if(yrs<1e6)return yrs.toFixed(0)+' yrs';
-  return yrs.toExponential(1)+' yrs';
-}
-
-const C_CLASSES = ['c0-node','c1-node','c2-node','c3-node','c4-node','c5-node','c6-node','c7-node','c8-node','c9-node'];
-const C_LABELS_3 = ['R','Y','G'];
-const C_COLORS_3 = [{bg:'#ffecea',border:'#e03020',text:'#7a0a08'},{bg:'#fdf8e0',border:'#c09010',text:'#5a3800'},{bg:'#e4f5ec',border:'#1a8a4a',text:'#083a1a'}];
-
-function getNodeClass(idx){return C_CLASSES[idx % C_CLASSES.length]}
-function getLabel(idx){
-  if(N===3)return C_LABELS_3[idx%3];
-  if(N===10)return String(idx%N);
-  return String.fromCharCode(65+(idx%N));
-}
-function getStyle(idx){
-  if(N===3)return C_COLORS_3[idx%3];
-  const cls=C_CLASSES[idx%C_CLASSES.length];
-  const tmp=document.createElement('div');tmp.className=cls;document.body.appendChild(tmp);
-  const cs=getComputedStyle(tmp);
-  const bg=cs.background,bc=cs.borderColor,co=cs.color;
-  document.body.removeChild(tmp);
-  return null;
-}
-
-function mkNode(lbl, cls, size, fsize){
-  const d=document.createElement('div');
-  d.className='node '+cls;
-  d.style.cssText=`width:${size}px;height:${size}px;font-size:${fsize}px`;
-  d.textContent=lbl;
-  return d;
-}
-
-function render(slotDelta){
-  const total=Math.pow(N,slots);
-  document.getElementById('tr-big').textContent=fmtN(total);
-  document.getElementById('tb-num').textContent=fmtN(total);
-  document.getElementById('tb-formula').textContent=Array(slots).fill(N).join(' × ')+(slots>1?' = '+N+sup(slots):'')+' = '+fmtN(total);
+let N=3,slots=3,prevTotal=9;
+function sup(n){return String(n).split('').map(c=>('0123456789'.indexOf(c)>=0?'\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079'['0123456789'.indexOf(c)]:c)).join('')}
+function fmtN(n){if(n<1e7)return n.toLocaleString('en-IN');const e=Math.floor(Math.log10(n));return(n/Math.pow(10,e)).toFixed(2).replace(/\.?0+$/,'')+'x10'+sup(e)}
+function fmtTime(s){if(s<1)return'<1 sec';if(s<60)return s.toFixed(0)+' sec';if(s<3600)return(s/60).toFixed(1)+' min';if(s<86400)return(s/3600).toFixed(1)+' hrs';if(s<86400*365)return(s/86400).toFixed(0)+' days';const yrs=s/(86400*365);return yrs<1e6?yrs.toFixed(0)+' yrs':yrs.toExponential(1)+' yrs'}
+const CC=['c0-node','c1-node','c2-node','c3-node','c4-node','c5-node','c6-node','c7-node','c8-node','c9-node'];
+const CL3=['R','Y','G'];
+function gcls(i){return CC[i%CC.length]}
+function glbl(i){if(N===3)return CL3[i%3];if(N===10)return String(i%N);return String.fromCharCode(65+(i%N))}
+function mkN(lbl,cls,sz,fs){const d=document.createElement('div');d.className='node '+cls;d.style.cssText='width:'+sz+'px;height:'+sz+'px;font-size:'+fs+'px';d.textContent=lbl;return d}
+function render(sd){
+  const tot=Math.pow(N,slots);
+  document.getElementById('tr-big').textContent=fmtN(tot);
+  document.getElementById('tb-num').textContent=fmtN(tot);
+  document.getElementById('tb-formula').textContent=Array(slots).fill(N).join(' x ')+(slots>1?' = '+N+sup(slots):'')+' = '+fmtN(tot);
   document.getElementById('sc-mid').textContent=slots;
-  document.getElementById('rh-title').textContent='All '+fmtN(total)+' combinations';
-  document.getElementById('rh-sub').textContent=N+' choice'+(N!==1?'s':'')+' × '+slots+' slot'+(slots!==1?'s':'');
-  document.getElementById('btn-add').disabled=slots>=6;
-  document.getElementById('btn-rem').disabled=slots<=1;
-
+  document.getElementById('rh-title').textContent='All '+fmtN(tot)+' combinations';
+  document.getElementById('rh-sub').textContent=N+' choice'+(N!==1?'s':'')+' x '+slots+' slot'+(slots!==1?'s':'');
+  document.getElementById('btn-add').disabled=slots>=6;document.getElementById('btn-rem').disabled=slots<=1;
   const badge=document.getElementById('tb-mult');
-  if(slotDelta===1&&prevTotal>0){
-    badge.textContent='× '+N+' — just multiplied!';
-    badge.classList.remove('show');void badge.offsetWidth;
-    badge.classList.add('show');
-    setTimeout(()=>badge.classList.remove('show'),2000);
-  }
-  prevTotal=total;
-
-  const rate=1000,secs=total/rate;
-  document.getElementById('time-box').innerHTML=
-    '<strong>Guessing 1,000/sec:</strong> would take '+fmtTime(secs)+
-    (secs<2?' — trivial!':secs<3600?' — manageable':' — practically impossible!');
-
+  if(sd===1&&prevTotal>0){badge.textContent='x '+N+' - just multiplied!';badge.classList.remove('show');void badge.offsetWidth;badge.classList.add('show');setTimeout(()=>badge.classList.remove('show'),2000);}
+  prevTotal=tot;
+  const rate=1000,secs=tot/rate;
+  document.getElementById('time-box').innerHTML='<strong>Guessing 1,000/sec:</strong> would take '+fmtTime(secs)+(secs<2?' - trivial!':secs<3600?' - manageable':' - practically impossible!');
   const prev=Math.pow(N,slots-1);
-  document.getElementById('insight-bar').innerHTML=
-    slots===1
-    ? `<strong>1 slot, ${N} choices:</strong> just ${N} possibilities. No multiplication yet.`
-    : `<strong>Adding slot ${slots} multiplied by ${N}:</strong> ${fmtN(prev)} combos each grew ${N} children → ${fmtN(prev)} × ${N} = <strong>${fmtN(total)}</strong>. That's why it's ${N}${sup(slots)} not ${N}×${slots}.`;
-
-  renderViz(total);
+  document.getElementById('insight-bar').innerHTML=slots===1?'<strong>1 slot, '+N+' choices:</strong> just '+N+' possibilities.':'<strong>Adding slot '+slots+' multiplied by '+N+':</strong> '+fmtN(prev)+' combos x '+N+' = <strong>'+fmtN(tot)+'</strong>. That is why it is '+N+sup(slots)+' not '+N+'x'+slots+'.';
+  renderViz(tot);
 }
-
-function renderViz(total){
-  const body=document.getElementById('viz-body');
-  body.innerHTML='';
-  if(N===3&&slots<=4) renderTree(body);
-  else if(total<=100) renderGrid(body,total);
-  else renderFog(body,total);
-}
-
+function renderViz(tot){const body=document.getElementById('viz-body');body.innerHTML='';if(N===3&&slots<=4)renderTree(body);else if(tot<=100)renderGrid(body,tot);else renderFog(body,tot);}
 function renderTree(body){
-  const k=slots;
-  const ns=k<=2?44:k===3?36:28;
-  const fs=k<=2?15:k===3?12:10;
-
-  function buildLevel(parent,level,prefix){
-    const isLeaf=level===k-1;
-    for(let i=0;i<N;i++){
-      const cls=getNodeClass(i);
-      const nd=mkNode(getLabel(i),cls,ns,fs);
-      if(isLeaf){
-        const full=[...prefix,i].map(x=>getLabel(x)).join('');
-        nd.textContent=full.length>3?full.slice(0,2)+'…':full;
-        nd.title=full;
-        nd.style.width=(ns*(k>2?1.5:1))+'px';
-        parent.appendChild(nd);
-      } else {
-        const wrap=document.createElement('div');
-        wrap.style.cssText='display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;min-width:'+(ns+6)+'px';
-        wrap.appendChild(nd);
-        const line=document.createElement('div');
-        line.style.cssText='width:1px;height:10px;background:var(--light)';
-        wrap.appendChild(line);
-        const childRow=document.createElement('div');
-        childRow.style.cssText='display:flex;gap:5px;justify-content:center;width:100%';
-        buildLevel(childRow,level+1,[...prefix,i]);
-        wrap.appendChild(childRow);
-        parent.appendChild(wrap);
-      }
-    }
+  const k=slots,ns=k<=2?44:k===3?36:28,fs=k<=2?15:k===3?12:10;
+  if(k===1){const g=document.createElement('div');g.className='blk-grp';const l=document.createElement('div');l.className='blk-lbl';l.textContent='Slot 1';g.appendChild(l);const r=document.createElement('div');r.className='blk-row';for(let i=0;i<N;i++)r.appendChild(mkN(glbl(i),gcls(i),ns,fs));g.appendChild(r);body.appendChild(g);return;}
+  const wrap=document.createElement('div');wrap.style.cssText='display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto';
+  for(let i=0;i<N;i++){
+    const g=document.createElement('div');g.style.cssText='display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;min-width:'+(ns+8)+'px';
+    g.appendChild(mkN(glbl(i),gcls(i),ns,fs));
+    const ln=document.createElement('div');ln.style.cssText='width:1px;height:12px;background:var(--light)';g.appendChild(ln);
+    const sub=document.createElement('div');sub.style.cssText='display:flex;gap:4px;justify-content:center;width:100%';
+    if(k===2){for(let j=0;j<N;j++)sub.appendChild(mkN(glbl(i)+glbl(j),gcls(j),ns,fs-2));}
+    else if(k===3){for(let j=0;j<N;j++){const mw=document.createElement('div');mw.style.cssText='display:flex;flex-direction:column;align-items:center;gap:4px';mw.appendChild(mkN(glbl(j),gcls(j),ns-6,fs-2));const l2=document.createElement('div');l2.style.cssText='width:1px;height:8px;background:var(--light)';mw.appendChild(l2);const lr=document.createElement('div');lr.style.cssText='display:flex;gap:2px';for(let kk=0;kk<N;kk++)lr.appendChild(mkN(glbl(i)+glbl(j)+glbl(kk),gcls(kk),ns-6,8));mw.appendChild(lr);sub.appendChild(mw);}}
+    else{const lr=document.createElement('div');lr.style.cssText='display:flex;flex-wrap:wrap;gap:2px;justify-content:center;max-width:120px';for(let j=0;j<Math.min(Math.pow(N,k-1),12);j++){const combo=[];let v=i*Math.pow(N,k-1)+j;for(let d=k-2;d>=0;d--){combo[d]=v%N;v=Math.floor(v/N);}lr.appendChild(mkN([glbl(i),...combo.map(x=>glbl(x))].join('').slice(-2)+'...',gcls(combo[combo.length-1]),ns-8,8));}const el=document.createElement('div');el.style.cssText='font-size:10px;color:var(--mid);font-family:var(--mono)';el.textContent='...';lr.appendChild(el);sub.appendChild(lr);}
+    g.appendChild(sub);wrap.appendChild(g);
   }
-
-  for(let level=0;level<k;level++){
-    const grp=document.createElement('div');grp.className='blk-grp';
-    const lbl=document.createElement('div');lbl.className='blk-lbl';lbl.textContent='Slot '+(level+1);
-    grp.appendChild(lbl);
-    if(level===0){
-      const row=document.createElement('div');row.className='blk-row';
-      buildLevel(row,0,[]);
-      grp.appendChild(row);
-      body.appendChild(grp);
-      break;
-    }
-  }
-  // For k=1 done. For k>1 build full tree
-  if(k>1){
-    body.innerHTML='';
-    const wrap=document.createElement('div');
-    wrap.style.cssText='display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto';
-    for(let i=0;i<N;i++){
-      const cls=getNodeClass(i);
-      const grp=document.createElement('div');
-      grp.style.cssText='display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;min-width:'+(ns+8)+'px';
-      const nd=mkNode(getLabel(i),cls,ns,fs);
-      grp.appendChild(nd);
-      const line=document.createElement('div');
-      line.style.cssText='width:1px;height:12px;background:var(--light)';
-      grp.appendChild(line);
-      const sub=document.createElement('div');
-      sub.style.cssText='display:flex;gap:4px;justify-content:center;width:100%';
-      if(k===2){
-        for(let j=0;j<N;j++){
-          const cls2=getNodeClass(j);
-          const full=getLabel(i)+getLabel(j);
-          const nd2=mkNode(full,cls2,ns,fs-2);
-          sub.appendChild(nd2);
-        }
-      } else if(k===3){
-        for(let j=0;j<N;j++){
-          const midWrap=document.createElement('div');
-          midWrap.style.cssText='display:flex;flex-direction:column;align-items:center;gap:4px';
-          const cls2=getNodeClass(j);
-          const nd2=mkNode(getLabel(j),cls2,ns-6,fs-2);
-          midWrap.appendChild(nd2);
-          const line2=document.createElement('div');
-          line2.style.cssText='width:1px;height:8px;background:var(--light)';
-          midWrap.appendChild(line2);
-          const leafRow=document.createElement('div');
-          leafRow.style.cssText='display:flex;gap:2px';
-          for(let kk=0;kk<N;kk++){
-            const cls3=getNodeClass(kk);
-            const full=getLabel(i)+getLabel(j)+getLabel(kk);
-            const nd3=mkNode(full,cls3,ns-6,8);
-            leafRow.appendChild(nd3);
-          }
-          midWrap.appendChild(leafRow);
-          sub.appendChild(midWrap);
-        }
-      } else {
-        // k=4 simplified
-        const leafRow=document.createElement('div');
-        leafRow.style.cssText='display:flex;flex-wrap:wrap;gap:2px;justify-content:center;max-width:120px';
-        for(let j=0;j<Math.min(Math.pow(N,k-1),12);j++){
-          const combo=[];let v=i*Math.pow(N,k-1)+j;
-          for(let d=k-2;d>=0;d--){combo[d]=v%N;v=Math.floor(v/N);}
-          const cls2=getNodeClass(combo[combo.length-1]);
-          const lbl2=[getLabel(i),...combo.map(x=>getLabel(x))].join('');
-          const nd2=mkNode(lbl2.slice(-2)+'…',cls2,ns-8,8);
-          leafRow.appendChild(nd2);
-        }
-        const ellEl=document.createElement('div');
-        ellEl.style.cssText='font-size:10px;color:var(--mid);font-family:var(--mono);text-align:center';
-        ellEl.textContent='…';leafRow.appendChild(ellEl);
-        sub.appendChild(leafRow);
-      }
-      grp.appendChild(sub);
-      wrap.appendChild(grp);
-    }
-    body.appendChild(wrap);
-
-    const banner=document.createElement('div');
-    banner.style.cssText='margin-top:14px;padding:8px 12px;background:var(--off);border:1.5px solid var(--light);font-family:var(--mono);font-size:12px;color:var(--iron);text-align:center';
-    banner.textContent=Array(k).fill(N).join(' × ')+' = '+N+sup(k)+' = '+Math.pow(N,k)+' combinations';
-    body.appendChild(banner);
-  }
+  body.appendChild(wrap);
+  const b=document.createElement('div');b.style.cssText='margin-top:14px;padding:8px 12px;background:var(--off);border:1.5px solid var(--light);font-family:var(--mono);font-size:12px;color:var(--iron);text-align:center';
+  b.textContent=Array(k).fill(N).join(' x ')+' = '+N+sup(k)+' = '+Math.pow(N,k)+' combinations';body.appendChild(b);
 }
-
-function renderGrid(body,total){
-  const perGroup=Math.pow(N,slots-1);
-  const cellSz=total<=30?38:total<=60?32:26;
-  const fSz=cellSz>=34?12:cellSz>=28?10:9;
-  for(let g=0;g<N;g++){
-    const cls=getNodeClass(g);
-    const grp=document.createElement('div');grp.className='blk-grp';
-    const lbl=document.createElement('div');lbl.className='blk-lbl';
-    const pill=document.createElement('span');
-    pill.className='node '+cls;
-    pill.style.cssText='width:auto;padding:2px 8px;font-size:11px;height:24px';
-    pill.textContent='Slot 1 = '+getLabel(g);
-    lbl.appendChild(pill);
-    grp.appendChild(lbl);
-    const row=document.createElement('div');row.className='blk-row';
-    for(let i=0;i<perGroup;i++){
-      const idx=g*perGroup+i;
-      const combo=[];let v=idx;
-      for(let kk=slots-1;kk>=0;kk--){combo[kk]=v%N;v=Math.floor(v/N);}
-      const lastCls=getNodeClass(combo[combo.length-1]);
-      const lbl2=combo.map(x=>getLabel(x)).join('');
-      const nd=mkNode(lbl2.length>3?lbl2.slice(0,2)+'…':lbl2,lastCls,cellSz,fSz);
-      nd.title=lbl2;row.appendChild(nd);
-    }
-    grp.appendChild(row);body.appendChild(grp);
-  }
-}
-
-function renderFog(body,total){
-  const perGroup=Math.pow(N,slots-1);
-  const showG=Math.min(2,N);
-  for(let g=0;g<showG;g++){
-    const cls=getNodeClass(g);
-    const grp=document.createElement('div');grp.className='blk-grp';
-    const lbl=document.createElement('div');lbl.className='blk-lbl';
-    const pill=document.createElement('span');
-    pill.className='node '+cls;pill.style.cssText='width:auto;padding:2px 8px;font-size:11px;height:24px';
-    pill.textContent='Slot 1 = '+getLabel(g);lbl.appendChild(pill);grp.appendChild(lbl);
-    const row=document.createElement('div');row.className='blk-row';
-    const show=Math.min(Number.isFinite(perGroup)?perGroup:10,10);
-    for(let i=0;i<show;i++){
-      const idx=g*perGroup+i;const combo=[];let v=idx;
-      for(let kk=slots-1;kk>=0;kk--){combo[kk]=v%N;v=Math.floor(v/N);}
-      const lastCls=getNodeClass(combo[combo.length-1]);
-      const lbl2=combo.map(x=>getLabel(x)).join('');
-      const disp=lbl2.length>3?'…'+lbl2.slice(-2):lbl2;
-      const nd=mkNode(disp,lastCls,34,10);nd.title=lbl2;row.appendChild(nd);
-    }
-    if(perGroup>show){const e=document.createElement('span');e.style.cssText='font-size:20px;color:var(--mid);letter-spacing:4px;align-self:center';e.textContent='…';row.appendChild(e);}
-    grp.appendChild(row);body.appendChild(grp);
-  }
-  if(N>2){const d=document.createElement('div');d.style.cssText='text-align:center;font-size:22px;color:var(--light);letter-spacing:10px;padding:6px';d.textContent='· · ·';body.appendChild(d);}
-  const fog=document.createElement('div');fog.className='fog-wrap';
-  fog.innerHTML=`<div class="fog-formula">${Array(slots).fill(N).join(' × ')} =</div><div class="fog-big">${fmtN(total)}</div><div class="fog-desc">${N} groups, each with ${fmtN(perGroup)} combinations</div>`;
-  body.appendChild(fog);
-}
-
-document.querySelectorAll('.cs-opt').forEach(opt=>{
-  opt.addEventListener('click',()=>{
-    document.querySelectorAll('.cs-opt').forEach(o=>o.classList.remove('active'));
-    opt.classList.add('active');
-    N=+opt.dataset.n;
-    slots=Math.min(slots,N===3?5:N===10?4:3);
-    prevTotal=Math.pow(N,slots-1);render(0);
-  });
-});
+function renderGrid(body,tot){const pg=Math.pow(N,slots-1),cs=tot<=30?38:tot<=60?32:26,fs=cs>=34?12:cs>=28?10:9;for(let g=0;g<N;g++){const grp=document.createElement('div');grp.className='blk-grp';const lbl=document.createElement('div');lbl.className='blk-lbl';const pill=document.createElement('span');pill.className='node '+gcls(g);pill.style.cssText='width:auto;padding:2px 8px;font-size:11px;height:24px';pill.textContent='Slot 1 = '+glbl(g);lbl.appendChild(pill);grp.appendChild(lbl);const row=document.createElement('div');row.className='blk-row';for(let i=0;i<pg;i++){const idx=g*pg+i;const c=[];let v=idx;for(let kk=slots-1;kk>=0;kk--){c[kk]=v%N;v=Math.floor(v/N);}const l2=c.map(x=>glbl(x)).join('');const nd=mkN(l2.length>3?l2.slice(0,2)+'...':l2,gcls(c[c.length-1]),cs,fs);nd.title=l2;row.appendChild(nd);}grp.appendChild(row);body.appendChild(grp);}}
+function renderFog(body,tot){const pg=Math.pow(N,slots-1),sg=Math.min(2,N);for(let g=0;g<sg;g++){const grp=document.createElement('div');grp.className='blk-grp';const lbl=document.createElement('div');lbl.className='blk-lbl';const pill=document.createElement('span');pill.className='node '+gcls(g);pill.style.cssText='width:auto;padding:2px 8px;font-size:11px;height:24px';pill.textContent='Slot 1 = '+glbl(g);lbl.appendChild(pill);grp.appendChild(lbl);const row=document.createElement('div');row.className='blk-row';const sh=Math.min(Number.isFinite(pg)?pg:10,10);for(let i=0;i<sh;i++){const idx=g*pg+i;const c=[];let v=idx;for(let kk=slots-1;kk>=0;kk--){c[kk]=v%N;v=Math.floor(v/N);}const l2=c.map(x=>glbl(x)).join('');const nd=mkN(l2.length>3?'...'+l2.slice(-2):l2,gcls(c[c.length-1]),34,10);nd.title=l2;row.appendChild(nd);}if(pg>sh){const e=document.createElement('span');e.style.cssText='font-size:20px;color:var(--mid);letter-spacing:4px;align-self:center';e.textContent='...';row.appendChild(e);}grp.appendChild(row);body.appendChild(grp);}if(N>2){const d=document.createElement('div');d.style.cssText='text-align:center;font-size:22px;color:var(--light);letter-spacing:10px;padding:6px';d.textContent='. . .';body.appendChild(d);}const fog=document.createElement('div');fog.className='fog-wrap';fog.innerHTML='<div class="fog-formula">'+Array(slots).fill(N).join(' x ')+' =</div><div class="fog-big">'+fmtN(tot)+'</div><div class="fog-desc">'+N+' groups, each with '+fmtN(pg)+' combinations</div>';body.appendChild(fog);}
+document.querySelectorAll('.cs-opt').forEach(o=>o.addEventListener('click',()=>{document.querySelectorAll('.cs-opt').forEach(x=>x.classList.remove('active'));o.classList.add('active');N=+o.dataset.n;slots=Math.min(slots,N===3?5:N===10?4:3);prevTotal=Math.pow(N,slots-1);render(0);}));
 document.getElementById('btn-add').addEventListener('click',()=>{if(slots<6){slots++;render(1);}});
 document.getElementById('btn-rem').addEventListener('click',()=>{if(slots>1){slots--;prevTotal=Math.pow(N,slots+1);render(-1);}});
-
-prevTotal=Math.pow(N,slots-1);
-render(0);
+prevTotal=Math.pow(N,slots-1);render(0);
 </script>
 </body>
 </html>
